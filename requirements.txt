@@ -15,7 +15,7 @@ click==8.1.7
 cmake==4.0.2
 colorama==0.4.6
 cytoolz==0.12.3
-dlib @ file:///C:/Users/charles/Downloads/dlib-19.24.2-cp312-cp312-win_amd64.whl#sha256=75bf6d37715039a9a60f946c0189a5e7fd676d7690ee108d97536d0f95551785
+dlib
 dnspython==2.6.1
 ecdsa==0.18.0
 eth-account==0.11.0
@@ -36,6 +36,7 @@ Flask-SocketIO==5.3.6
 Flask-SQLAlchemy==3.1.1
 frozenlist==1.4.1
 greenlet==3.0.3
+gunicorn==23.0.0
 h11==0.14.0
 hexbytes==0.3.1
 idna==3.6
