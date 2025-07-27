@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Careers - BlueWave Petroleum</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .top-banner {
+      width: 100%;
+      height: 160px;
+      background-color: #5ca0d3;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      position: relative;
+    }
+    .logo-container img {
+      height: 120px;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 20px;
+      margin-left: 40px;
+    }
+    .nav-item a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .nav-item a:hover {
+      text-decoration: underline;
+    }
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-left: auto;
+      margin-right: 30px;
+      position: relative;
+    }
+    .gmail-icon {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .gmail-icon img {
+      width: 44px;
+      height: 44px;
+      transition: opacity 0.3s ease;
+    }
+    .gmail-icon img:hover {
+      opacity: 0.7;
+    }
+    .global-icon {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+    }
+    .global-icon img,
+    .search-icon img {
+      width: 44px;
+      height: 44px;
+    }
+    .search-icon {
+      filter: invert(29%) sepia(94%) saturate(467%) hue-rotate(185deg) brightness(97%) contrast(94%);
+      cursor: pointer;
+    }
+    /* Updated styles for the full-width search dropdown */
+    #search-overlay {
+      display: none; /* hidden by default */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+    }
+    #search-container {
+      background: #fff;
+      padding: 20px 20px 40px 20px;
+      width: 100%;
+      box-sizing: border-box;
+      position: relative;
+    }
+    /* X icon to close the dropdown */
+    #closeOverlay {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+    }
+    /* Style for the search input and button container */
+    .search-input-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    #search {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+    }
+    #searchBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-left: none;
+      border-radius: 0 4px 4px 0;
+      background-color: #5ca0d3;
+      color: white;
+      cursor: pointer;
+    }
+    /* Results list styles */
+    #results {
+      list-style: none;
+      padding: 0;
+      margin: 20px auto 0 auto;
+      max-width: 800px;
+      text-align: left;
+    }
+    #results li {
+      background: #f9f9f9;
+      margin: 5px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    #results li a {
+      text-decoration: none;
+      color: #034078;
+      font-weight: bold;
+    }
+    #results li a:hover {
+      text-decoration: underline;
+    }
+    /* Global Dropdown Styles */
+    .global-dropdown {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 450px;
+      height: 450px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      z-index: 100;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    }
+    .global-dropdown a {
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      color: #034078;
+      font-size: 18px;
+      border-bottom: 1px solid #ddd;
+    }
+    .global-dropdown a:last-child {
+      border-bottom: none;
+    }
+    /* Style the active link so it is underlined */
+    .global-dropdown a.active-link {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    /* Make the other links lighter in font weight */
+    .global-dropdown a:not(.active-link) {
+      font-weight: lighter;
+    }
+    .global-dropdown a:hover {
+      background: #f2f2f2;
+    }
+    /* Updated Nested Dropdown Containers (if needed) */
+    .nested-dropdown {
+      margin-left: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      height: 200px; /* Set a specific height or remove for auto-height */
+    }
+    /* For third-level dropdown, you can adjust height as well */
+    .nested-dropdown.level-2 {
+      margin-top: 10px;
+      height: 150px; /* Set height as desired */
+    }
+    /* Style for non-clickable text (bigger, bold) */
+    .not-clickable {
+      font-size: 18px;
+      font-weight: bold;
+      display: block;
+      padding: 5px 0;
+    }
+    /* Style for clickable items (smaller, lighter) */
+    .clickable-item {
+      font-size: 14px;
+      font-weight: lighter;
+      color: #034078;
+      text-decoration: none;
+      display: block;
+      padding: 5px 0;
+    }
+    .clickable-item:hover {
+      text-decoration: underline;
+    }
+    .photo-container {
+      position: relative;
+      width: 100%;
+      height: 300px;
+    }
+    .photo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .photo-text {
+      position: absolute;
+      top: 30px;
+      left: 50px;
+      color: white;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+      max-width: 50%;
+    }
+    .photo-text h1 {
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .photo-text p {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+    .info-section {
+      max-width: 80%;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .info-section h1 {
+      font-size: 32px;
+      color: #034078;
+      margin-bottom: 15px;
+    }
+    .info-section p {
+      font-size: 18px;
+      color: #555;
+    }
+    .info-section a {
+      color: #034078;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .info-section a:hover {
+      text-decoration: underline;
+    }
+    /* Intercepting Images & Blue Background */
+    .image-background-wrapper {
+      display: flex;
+      width: 100%;
+      align-items: stretch;
+      margin-top: -20px;
+    }
+    .intercept-photo {
+      width: 50%;
+    }
+    .intercept-photo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .blue-background {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+    }
+    .blue-background .top-half, .blue-background .bottom-half {
+      height: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      flex-direction: column;
+    }
+    .blue-background .top-half {
+      background-color: #034078;
+    }
+    .blue-background .bottom-half {
+      background-color: #5ca0d3;
+    }
+    /* Navigation dropdown for nav items */
+    .nav-item {
+      position: relative;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%; /* directly below the nav item */
+      left: 0;   /* aligns with the nav item's left edge */
+      transform: translateX(-180px); /* shifts the dropdown 180px to the left */
+      width: 50vw;
+      height: 450px;
+      background-color: white;
+      border: 1px solid #ccc;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+    .nav-item:hover .dropdown-content {
+      display: block;
+    }
+    /* Container inside dropdown to split into two halves */
+    .dropdown-container {
+      display: flex;
+      height: 100%;
+    }
+    .dropdown-left,
+    .dropdown-right {
+      width: 50%;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    /* Vertical divider for left column */
+    .dropdown-left {
+      border-right: 1px solid #ccc;
+    }
+    /* Left side styles */
+    .dropdown-image {
+      max-height: 180px;
+      width: auto;
+      max-width: 100%; /* Prevents image from exceeding its container */
+      display: block;
+      margin: 0 auto;
+    }
+    .dropdown-text {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .dropdown-subtext {
+      margin-top: 5px;
+      font-size: 14px;
+      font-weight: normal;
+      text-align: center;
+      color: #555;
+    }
+    .dropdown-description p {
+      margin: 8px 0;
+      font-size: 14px;
+      color: #555;
+      text-align: left;
+    }
+    /* Right side clickable menu */
+    .dropdown-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .dropdown-menu li {
+      margin: 12px 0;
+    }
+    .dropdown-menu li a {
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      color: #000;
+      display: block;
+      padding: 5px;
+    }
+    /* Blue text for special items with arrow */
+    .dropdown-menu li a.blue-item {
+      color: blue;
+    }
+    .dropdown-menu li a.blue-item::before {
+      content: "→ ";
+      color: blue;
+    }
+    /* Adjust right column to take full height and allow scrolling */
+    .dropdown-right {
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    /* Image White Background Wrapper */
+    .image-white-background-wrapper {
+      display: flex;
+      width: 100%;
+      align-items: stretch;
+      margin-top: -20px;
+    }
+    .image-white-background-wrapper .intercept-photo {
+      width: 50%;
+    }
+    .image-white-background-wrapper .intercept-photo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .image-white-background-wrapper .white-background {
+      width: 50%;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .image-white-background-wrapper .white-background .white-content {
+      max-width: 80%;
+    }
+    .image-white-background-wrapper .white-background h2 {
+      font-size: 32px;
+      color: #034078;
+      font-weight: bold;
+    }
+    .image-white-background-wrapper .white-background p {
+      font-size: 18px;
+      color: #555;
+    }
+    /* Grey Background Section */
+    .grey-background-section {
+      width: 100%;
+      height: 400px;
+      background-color: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10%;
+      color: white;
+    }
+    .grey-text-container {
+      max-width: 50%;
+    }
+    .grey-text-container h2 {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .grey-text-container p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    .learn-more-link {
+      color: #5ca0d3;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 18px;
+    }
+    .learn-more-link:hover {
+      text-decoration: underline;
+    }
+    .grey-image-container img {
+      height: 100%;
+      max-height: 360px;
+      width: auto;
+    }
+    .image-blue-grey-wrapper {
+      display: flex;
+      width: 100%;
+      align-items: stretch;
+    }
+    .image-blue-grey-wrapper .intercept-photo {
+      width: 50%;
+    }
+    .image-blue-grey-wrapper .intercept-photo img {
+      width: 100%;
+      height: 640px;
+      display: block;
+    }
+    .blue-grey-background {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+    }
+    .blue-section {
+      background-color: #034078;
+      color: white;
+      height: 450px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+    .blue-section h2 {
+      font-size: 32px;
+      font-weight: bold;
+    }
+    .blue-section p {
+      font-size: 18px;
+    }
+    .grey-section {
+      background-color: #333;
+      height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      padding: 0 20px;
+    }
+    /* Careers Highlights Section (repurposed from Core Values) */
+    .full-width-white {
+      width: 100%;
+      background-color: white;
+      padding: 40px 0;
+      display: flex;
+      justify-content: center;
+    }
+    .shiny-white-container {
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 60px;
+      max-width: 1100px;
+      text-align: center;
+      border-radius: 10px;
+    }
+    .shiny-white-container h2 {
+      font-size: 32px;
+      color: #034078;
+      font-weight: bold;
+      margin-bottom: 20px;
+      margin-top: -40px;
+    }
+    .core-values-container {
+      display: flex;
+      justify-content: space-between;
+      max-width: 950px;
+      margin: 30px auto;
+      text-align: left;
+    }
+    .core-values-left, .core-values-right {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
+    .core-values-left {
+      margin-right: 50px;
+    }
+    .core-values-right {
+      margin-left: 50px;
+    }
+    .core-value {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 22px;
+      font-weight: bold;
+      color: #034078;
+      cursor: pointer;
+      padding: 12px 18px;
+      background: #f2f2f2;
+      border-radius: 6px;
+      width: 300px;
+    }
+    .core-value span {
+      font-size: 24px;
+      color: #5ca0d3;
+    }
+    /* Core Dropdown Override */
+    .shiny-white-container .core-dropdown-content {
+      display: none; /* Hidden by default */
+      position: static; /* Remain in document flow */
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+      margin-top: 5px;
+      border-radius: 4px;
+    }
+    /* Grey Section for Additional Careers Info */
+    .grey-section .sustainability-section {
+      text-align: center;
+      width: 100%;
+      color: white;
+    }
+    .grey-section .sustainability-section h2 {
+      font-size: 24px;
+      margin: 0 0 5px;
+      line-height: 1.2;
+    }
+    .grey-section .sustainability-section p {
+      font-size: 14px;
+      margin: 0 0 10px;
+      line-height: 1.3;
+    }
+    .grey-section .sustainabilty-button {
+      background-color: #5ca0d3;
+      color: white;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 14px;
+      display: inline-block;
+    }
+    .grey-section .sustainabilty-button:hover {
+      background-color: #4a8ac3;
+    }
+    /* Explore More Section */
+    .explore-more-section {
+      width: 80%;
+      margin: 60px auto;
+      text-align: left;
+    }
+    .explore-title {
+      font-size: 36px;
+      font-weight: bold;
+      color: #034078;
+      margin-bottom: 20px;
+    }
+    .explore-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      text-align: center;
+    }
+    .explore-item img {
+      width: 100%;
+      max-width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .explore-item a {
+      display: block;
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #034078;
+      text-decoration: none;
+    }
+    .explore-item a:hover {
+      text-decoration: underline;
+    }
+    /* Grey Background Footer Section */
+    .grey-background {
+      background-color: #333;
+      padding: 50px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      width: 100%;
+      min-height: 50px;
+    }
+    .grey-nav {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+    }
+    .grey-nav a {
+      color: white;
+      text-decoration: none;
+      margin-right: 15px;
+      font-weight: bold;
+    }
+    .grey-socials {
+      position: absolute;
+      top: 10px;
+      right: 50px;
+    }
+    .grey-socials a img {
+      width: 30px;
+      height: 30px;
+      margin-left: 10px;
+    }
+    .footer-container {
+      width: 100%;
+      text-align: center;
+    }
+    .footer-links {
+      margin-bottom: 10px;
+    }
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .footer-copyright {
+      color: white;
+      font-size: 14px;
+    }
+    /* Chat Icon in Grey Background (permanent position) */
+    .chat-icon-container {
+      position: absolute;
+      bottom: 10px;
+      right: 50px;
+      cursor: pointer;
+    }
+    .chat-icon-container img {
+      width: 40px;
+      height: 40px;
+    }
+    /* Fixed Chat Icon (always visible at bottom right) */
+    .fixed-chat-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      cursor: pointer;
+    }
+    .fixed-chat-icon img {
+      width: 40px;
+      height: 40px;
+    }
+    /* Chat Box Styles */
+    .chat-box {
+      position: fixed;
+      bottom: 70px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      display: none;
+      flex-direction: column;
+      z-index: 1000;
+    }
+    .chat-header {
+      background-color: #5ca0d3;
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 14px;
+      text-align: left;
+      max-height: 300px;
+    }
+    .chat-message {
+      margin-bottom: 10px;
+    }
+    /* Styling for Live Support reply box */
+    .live-support-box {
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      padding: 8px;
+      border-radius: 5px;
+      display: inline-block;
+      max-width: 80%;
+    }
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+    .chat-input input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+    }
+    /* Chat Box Support Button Styles */
+    #supportButton {
+      padding: 10px 20px;
+      background-color: #5ca0d3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #supportButton:hover {
+      background-color: #4a8ac3;
+    }
+
+
+
+
+
+
+            /* ─── Base Hamburger Styling (matches index) ─── */
+.hamburger-menu {
+  display: none !important;           /* hide on desktop */
+  font-size: 30px !important;         /* same size as index */
+  background: none !important;
+  border: none !important;
+  color: white !important;
+  cursor: pointer !important;
+  margin-left: auto !important;       /* right‐align in flex container */
+  margin-right: 20px !important;
+}
+
+/* ─── Hide the mobile nav overlay on all viewports by default ─── */
+#mobileNavOverlay {
+  display: none;
+}
+
+/* Hide hamburger on desktop */
+.hamburger-menu {
+  display: none !important;
+}
+
+
+@media (max-width: 768px) {
+  /* ───────────── Mobile-Only Nav Styles ───────────── */
+
+  /* 1) Hide the desktop menu links */
+  .nav-menu {
+    display: none !important;
+  }
+
+  /* 2) Show the hamburger button */
+  .hamburger-menu {
+    display: block !important;
+    position: relative;
+    z-index: 1001;
+  }
+
+  /* 3) Show right-side icons in mobile */
+  .nav-icons {
+    display: flex !important;
+    margin-left: auto !important;
+    margin-right: 20px !important;
+    gap: 10px;
+  }
+  .gmail-icon img,
+  .global-icon img,
+  .search-icon img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  /* 4) Full-screen, slide-in overlay */
+  #mobileNavOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #004080;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 3000;
+    padding-top: 80px;
+    overflow-y: auto;
+  }
+  #mobileNavOverlay.open {
+    transform: translateX(0);
+  }
+
+  /* 5) Close button (“×”) */
+  .mobile-nav-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    z-index: 3001;
+  }
+
+  /* 6) Two-panel wrapper */
+  .mobile-menu-panel {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out;
+    background: transparent;
+  }
+  .panel-main { transform: translateX(0); }
+  .panel-sub  { transform: translateX(100%); }
+  .panel-main.hidden { transform: translateX(-100%); }
+  .panel-sub.active { transform: translateX(0); }
+
+  /* 7) “Back” button inside submenu */
+  .back-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    text-align: left;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  /* 8) Submenu heading */
+  .sub-menu-heading {
+    color: #fff;
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem;
+    padding: 0 1.5rem;
+    background: #0053a0;
+  }
+
+  /* 9) Lists */
+  .mobile-menu-list,
+  .sub-menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    overflow-y: auto;
+  }
+  .mobile-menu-list li + li {
+    border-top: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* 10) Top-level menu buttons with arrow indicator */
+  .menu-btn {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1.1rem;
+    color: #fff;
+    cursor: pointer;
+    position: relative;               /* for the pseudo-element */
+  }
+  .menu-btn::after {
+    content: "▸";
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: #ccc;
+  }
+  .menu-btn:hover {
+    background: rgba(255,255,255,0.1);
+  }
+
+  /* 11) Sub-menu links */
+  .sub-menu-list li + li a {
+    border-top: 1px solid rgba(255,255,255,0.2);
+  }
+  .sub-menu-list a {
+    display: block;
+    padding: 0.75rem 2.5rem;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .sub-menu-list a:hover {
+    background: rgba(255,255,255,0.1);
+  }
+
+
+ 
+ /* ── Nudge fully into view on mobile ── */
+.top-banner {
+  position: relative !important;
+}
+
+.hamburger-menu {
+  position: absolute !important;
+  top: 10px !important;
+  right: 0 !important;
+  left: auto !important;
+  margin: 0 !important;
+  /* slide left 120% of its own width instead of 100% */
+  transform: translateX(-120%) !important;
+  z-index: 3 !important;
+}
+
+
+
+
+   /* ── Shift search icon fully into view on mobile ── */
+.search-icon {
+  position: relative !important;
+  transform: translateX(-7px) !important;  /* pull it left by 7px */
+}
+
+    
+    
+    
+      /* ----- Top Banner Icons Smaller on Mobile ----- */
+  .gmail-icon img,
+  .global-icon img,
+  .search-icon img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+    /* ----- Full-Width, Fixed-Height Global Dropdown on Mobile ----- */
+  .global-dropdown {
+    position: fixed !important;
+    top: 100px !important;           /* directly below the 100px-tall banner */
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;          /* span entire viewport width */
+    height: 150px !important;        /* your requested fixed height */
+    max-height: none !important;
+    overflow-y: auto !important;     /* scroll if content exceeds 100px */
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+    padding: 10px !important;        /* inner padding for text comfort */
+    z-index: 2000 !important;        /* sit atop page content */
+  }
+
+  /* ----- Level-1 Nested Dropdown (inside the global dropdown) ----- */
+  .nested-dropdown {
+    position: absolute !important;
+    top: 0 !important;               /* flush to top inside the fixed parent */
+    left: 0 !important;
+    width: 100% !important;
+    height: 150px !important;         /* slightly shorter */
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+    padding: 10px 20px  !important;   /* indent for visual hierarchy */
+  }
+
+  /* ----- Level-2 Nested Dropdown ----- */
+  .nested-dropdown.level-2 {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 150px !important;         /* your requested height */
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+    padding: 10px 30px !important;
+  }
+
+    .global-dropdown .nested-dropdown,
+.global-dropdown .nested-dropdown.level-2 {
+  display: none !important;
+ }
+ 
+
+
+/* ───── Section Separator ───── */
+  hr {
+    border: 0 !important;
+    border-top: 1px solid #ccc !important;
+    margin: 30px 0 !important;
+  }
+
+  /* ───── Hero Photo + Text ───── */
+  .photo-container {
+    height: 200px !important;
+  }
+  .photo-container img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+  }
+  .photo-text {
+    top: 15px !important;
+    left: 10px !important;
+    max-width: 85% !important;
+  }
+  .photo-text h1 {
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+  }
+  .photo-text p {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* ───── Intro Info Section ───── */
+  hr + .info-section,
+  .info-section {
+    padding: 30px 10px !important;
+    max-width: 95% !important;
+    margin: 0 auto !important;
+    text-align: left !important;
+  }
+  .info-section h1 {
+    font-size: 22px !important;
+    margin-bottom: 10px !important;
+  }
+  .info-section p {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+  }
+
+
+    /* Make the “intercept-photo” go edge‑to‑edge */
+.image-background-wrapper {
+  display: flex;
+  flex-wrap: wrap;            /* allow children to wrap */
+  margin: 0;                   /* remove any side gutters */
+  padding: 0;                  /* remove any side padding */
+}
+.image-background-wrapper .intercept-photo,
+.image-background-wrapper .blue-background {
+  width: 100% !important;      /* force each half to full width */
+}
+.image-background-wrapper .intercept-photo img {
+  width: 100% !important;      /* make the image fill its container */
+  height: auto !important;
+  object-fit: cover;
+  object-position: center;
+} 
+
+
+
+  /* ───── Image + Blue Background ───── */
+  .image-background-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .image-background-wrapper .intercept-photo img {
+    width: 100% !important;
+    height: 250px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    margin-bottom: -50px !important;
+  }
+  .image-background-wrapper .blue-background {
+    width: 100% !important;
+    margin-top: 50px !important;
+    padding: 20px 10px !important;
+    box-sizing: border-box !important;
+  }
+  .image-background-wrapper .blue-background .top-half,
+  .image-background-wrapper .blue-background .bottom-half {
+    margin-bottom: 20px !important;
+  }
+  .image-background-wrapper .blue-background h2 {
+    font-size: 20px !important;
+    margin-bottom: 8px !important;
+  }
+  .image-background-wrapper .blue-background p {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* ───── What We Value Section ───── */
+  .full-width-white {
+    display: flex !important;
+    justify-content: center !important;
+    padding: 20px 10px !important;
+    box-sizing: border-box !important;
+  }
+  .shiny-white-container {
+    width: 100% !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+  }
+  .shiny-white-container h2 {
+    font-size: 24px !important;
+    margin-bottom: 16px !important;
+  }
+  .core-values-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  .core-value {
+    width: 100% !important;
+    font-size: 16px !important;
+    padding: 12px !important;
+    margin-bottom: 10px !important;
+  }
+  .core-dropdown-content {
+    margin: 4px 0 12px !important;
+    padding: 10px !important;
+  }
+  .core-dropdown-content ul {
+    padding-left: 20px !important;
+  }
+  .core-dropdown-content li {
+    font-size: 14px !important;
+    margin-bottom: 6px !important;
+  }
+
+
+     /* Make the history “intercept-photo” go edge‑to‑edge */
+.image-white-background-wrapper {
+  display: flex;
+  flex-wrap: wrap;    
+  margin: 0;          
+  padding: 0;         
+}
+.image-white-background-wrapper .intercept-photo,
+.image-white-background-wrapper .white-background {
+  width: 100% !important;
+}
+.image-white-background-wrapper .intercept-photo img {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+
+  /* ───── Image + White Background ───── */
+  .image-white-background-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .image-white-background-wrapper .intercept-photo img {
+    width: 100% !important;
+    height: 250px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    margin-bottom: -40px !important;
+  }
+  .white-background {
+    width: 100% !important;
+    margin-top: 40px !important;
+    padding: 20px 10px !important;
+    box-sizing: border-box !important;
+  }
+  .white-content h2 {
+    font-size: 20px !important;
+    margin-bottom: 8px !important;
+  }
+  .white-content p {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 12px !important;
+  }
+  .white-content a {
+    font-size: 14px !important;
+    margin-top: 8px !important;
+    display: inline-block !important;
+  }
+
+  /* ───── Grey Background Section ───── */
+  .grey-background-section {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 30px 10px !important;
+    box-sizing: border-box !important;
+  }
+  .grey-text-container {
+    border: 4px double #fff !important;
+    padding: 20px !important;
+    margin-bottom: 20px !important;
+    background: rgba(255,255,255,0.1) !important;
+  }
+  .grey-text-container h2 {
+    font-size: 20px !important;
+    margin-bottom: 8px !important;
+  }
+  .grey-text-container p {
+    font-size: 16px !important;
+    margin-bottom: 12px !important;
+  }
+  .grey-text-container .learn-more-link {
+    font-size: 14px !important;
+  }
+  .grey-image-container img {
+    width: 100% !important;
+    height: auto !important;
+    margin-top: 10px !important;
+    display: block !important;
+  }
+
+  /* ─── Image + Blue‑Grey Wrapper (Full‑Width) ─── */
+
+  .image-blue-grey-wrapper {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .image-blue-grey-wrapper .intercept-photo img {
+    width: 100% !important;
+    height: 300px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    margin-bottom: 0 !important;
+  }
+  .blue-grey-background {
+    width: 100% !important;
+    padding: 2px 10px !important;
+    box-sizing: border-box !important;
+  }
+  .blue-grey-background .blue-section,
+  .blue-grey-background .grey-section {
+    width: 100% !important;
+    padding: 20px 0 !important;
+  }
+  .blue-grey-background h2 {
+    font-size: 20px !important;
+    margin-bottom: 8px !important;
+  }
+  .blue-grey-background p {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+  }
+  .sustainabilty-button {
+    display: inline-block !important;
+    margin-top: 8px !important;
+    font-size: 14px !important;
+  }
+
+  
+
+
+  /* ───── Explore More ───── */
+  .explore-more-section {
+    padding: 30px 10px !important;
+  }
+  .explore-title {
+    font-size: 22px !important;
+    margin-bottom: 16px !important;
+    text-align: center !important;
+  }
+  .explore-container {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .explore-item img {
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 6px !important;
+  }
+  .explore-item .explore-link {
+    font-size: 16px !important;
+    margin-top: 8px !important;
+    display: inline-block !important;
+  }
+
+
+
+
+
+
+ 
+
+   /* ---------- Mobile Footer Layout (replace old rules) ---------- */
+
+
+    .grey-background {
+  position: relative; /* ✅ Needed for absolute positioning inside */
+  padding: 20px 10px !important;
+  box-sizing: border-box !important;
+}
+
+
+.fixed-chat-icon {
+    /* override the default right:20px; push it further right */
+    right: 10px !important;
+    /* ensure it’s still fixed and auto‑left */
+    left: auto !important;
+  } 
+
+
+.chat-icon-container {
+  position: absolute;
+  right: 10px; /* Increase if you want it further right */
+  bottom: 20px; /* Adjust vertical position if needed */
+  z-index: 10;
+}
+ 
+
+ /* Ensure the grey background has padding */
+  .grey-background {
+    padding: 20px 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* First row: navigation links */
+  .grey-nav {
+    position: static !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    margin: 0 0 10px !important;
+    width: 100% !important;
+  }
+  .grey-nav a {
+    display: inline-block !important;
+  }
+
+  /* Second row: social icons */
+  .grey-socials {
+    position: static !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    margin: 0 0 15px !important;
+    width: 100% !important;
+  }
+
+  /* Divider + spacing before the footer-links/copyright */
+  .footer-container {
+    border-top: 1px solid #ccc !important;
+    padding-top: 15px !important;
+    margin-top: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Bottom links: wrap and center */
+  .footer-links {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    margin: 0 0 10px !important;
+  }
+  .footer-links a {
+    display: inline-block !important;
+  }
+
+  /* Copyright centered */
+  .footer-copyright {
+    text-align: center !important;
+    margin: 0 !important;
+    font-size: 14px !important;
+  }
+
+     /* ---- Footer Links Vertical on Mobile ---- */
+  .footer-links {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;       /* space between each link */
+    margin-bottom: 15px !important;
+  }
+  .footer-links a {
+    display: block !important;
+    margin: 0 !important;
+  }
+
+} 
+      
+
+
+
+
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <div class="top-banner">
+    <div class="logo-container">
+      <a href="{{ url_for('index_html') }}">
+        <img src="{{ url_for('static', filename='images/bluewave_logo1.webp') }}" alt="BlueWave Oil and Gas Logo">
+      </a>
+    </div>
+
+
+
+
+    <!-- Hamburger Menu Button for mobile -->
+    <button class="hamburger-menu" onclick="toggleMobileNav()">&#9776;</button> 
+
+
+
+
+
+
+    <nav class="nav-menu">
+      <div class="nav-item">
+        <a href="/who-we-are">Who we are</a>
+        <div class="dropdown-content">
+          <div class="dropdown-container">
+            <!-- Left side: Writeups (light font) -->
+            <div class="dropdown-left">
+              <img src="{{ url_for('static', filename='images/oilp1.jpg') }}" alt="Who we are image" class="dropdown-image">
+              <div class="dropdown-text">Who We Are</div>
+              <div class="dropdown-subtext">
+                We're committed to responsibly meeting society’s evolving energy needs
+              </div>
+              <div class="dropdown-description">
+                <p>At BlueWave Petroleum, we combine innovative technology and sustainable practices to provide energy solutions that power communities while preserving our planet.</p>
+                <p>Our team of experts is dedicated to ensuring safety, efficiency, and environmental stewardship in every project we undertake.</p>
+              </div>
+            </div>
+            <!-- Right side: Menu links (bold) -->
+            <div class="dropdown-right">
+              <ul class="dropdown-menu">
+                <li><a href="/who-we-are" class="blue-item">Who We Are</a></li>
+                <li><a href="/global-organization">Our Global Organization</a></li>
+                <li><a href="/our-approach">Our Approach</a></li>
+                <li><a href="/technology-and-collaborations">Technology and Collaborations</a></li>
+                <li><a href="/policy">Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div> 
+      <!-- What We Do Dropdown -->
+      <div class="nav-item">
+        <a href="/what-we-do">What we do</a>
+        <div class="dropdown-content">
+          <div class="dropdown-container">
+            <!-- Left side -->
+            <div class="dropdown-left">
+              <img src="{{ url_for('static', filename='images/dropdownp2.jpg') }}" alt="What we do image" class="dropdown-image">
+              <div class="dropdown-text">What We Do</div>
+              <div class="dropdown-subtext">
+                Driving energy solutions through innovation
+              </div>
+              <div class="dropdown-description">
+                <p>At BlueWave Petroleum, we leverage state-of-the-art technology and deep industry expertise to power our operations. Our activities span from exploration and production to refining and distribution, ensuring we meet today's energy demands while preparing for tomorrow.</p>
+                <p>Our focus on innovation, efficiency, and sustainability enables us to deliver cutting-edge energy solutions that drive progress and empower communities worldwide.</p>
+              </div>
+            </div>
+            <!-- Right side menu -->
+            <div class="dropdown-right">
+              <ul class="dropdown-menu">
+                <li><a href="/what-we-do" class="blue-item">What We Do</a></li>
+                <li><a href="/exploration-and-production">Exploration & Production</a></li>
+                <li><a href="/refining-and-distribution">Refining & Distribution</a></li>
+                <li><a href="/innovative-solutions">Innovative Solutions</a></li>
+                <li><a href="/operational-excellence">Operational Excellence</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Sustainability Dropdown -->
+      <div class="nav-item">
+        <a href="/sustainability">Sustainability</a>
+        <div class="dropdown-content">
+          <div class="dropdown-container">
+            <!-- Left side -->
+            <div class="dropdown-left">
+              <img src="{{ url_for('static', filename='images/susp11.jpg') }}" alt="Sustainability image" class="dropdown-image">
+              <div class="dropdown-text">Sustainability</div>
+              <div class="dropdown-subtext">
+                Empowering a greener future
+              </div>
+              <div class="dropdown-description">
+                <p>Our sustainability initiatives ensure that we meet current energy needs while protecting the environment for future generations. We integrate environmental, social, and governance practices across all operations.</p>
+                <p>Through innovation and strategic partnerships, we continuously reduce our carbon footprint and promote green innovation in every aspect of our business.</p>
+              </div>
+            </div>
+            <!-- Right side menu -->
+            <div class="dropdown-right">
+              <ul class="dropdown-menu">
+                <li><a href="/sustainability" class="blue-item">Sustainability Overview</a></li>
+                <li><a href="/environmental-impact">Environmental Impact</a></li>
+                <li><a href="/resource-efficiency">Resource Efficiency</a></li>
+                <li><a href="/green-innovations">Green Innovations</a></li>
+                <li><a href="/community-engagement">Community Engagement</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Community Dropdown -->
+      <div class="nav-item">
+        <a href="/community">Community</a>
+        <div class="dropdown-content">
+          <div class="dropdown-container">
+            <!-- Left side -->
+            <div class="dropdown-left">
+              <img src="{{ url_for('static', filename='images/comp11.jpg') }}" alt="Community image" class="dropdown-image">
+              <div class="dropdown-text">Community</div>
+              <div class="dropdown-subtext">
+                Building stronger connections
+              </div>
+              <div class="dropdown-description">
+                <p>At BlueWave Petroleum, we believe in the power of community. We foster local development, support social programs, and build partnerships that strengthen community resilience.</p>
+                <p>Our commitment extends beyond energy production—we work to enhance the well-being of the communities where we operate.</p>
+              </div>
+            </div>
+            <!-- Right side menu -->
+            <div class="dropdown-right">
+              <ul class="dropdown-menu">
+                <li><a href="/community" class="blue-item">Community Outreach</a></li>
+                <li><a href="/local-partnerships">Local Partnerships</a></li>
+                <li><a href="/social-programs">Social Programs</a></li>
+                <li><a href="/employee-engagement">Employee Engagement</a></li>
+                <li><a href="/volunteer-initiatives">Volunteer Initiatives</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Newsroom Dropdown -->
+      <div class="nav-item">
+        <a href="/newsroom">Newsroom</a>
+        <div class="dropdown-content">
+          <div class="dropdown-container">
+            <!-- Left side -->
+            <div class="dropdown-left">
+              <img src="{{ url_for('static', filename='images/newp12.jpg') }}" alt="Newsroom image" class="dropdown-image">
+              <div class="dropdown-text">Newsroom</div>
+              <div class="dropdown-subtext">
+                Stay informed with our updates
+              </div>
+              <div class="dropdown-description">
+                <p>Stay informed with the latest updates and press releases from BlueWave Petroleum. Our newsroom is your source for company news, industry insights, and expert commentary.</p>
+                <p>We are committed to transparency and timely communication, ensuring you receive accurate and current information about our initiatives.</p>
+              </div>
+            </div>
+            <!-- Right side menu -->
+            <div class="dropdown-right">
+              <ul class="dropdown-menu">
+                <li><a href="/newsroom" class="blue-item">Newsroom</a></li>
+                <li><a href="/press-releases">Press Releases</a></li>
+                <li><a href="/media-coverage">Media Coverage</a></li>
+                <li><a href="/industry-insights">Industry Insights</a></li>
+                <li><a href="/expert-commentary">Expert Commentary</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Investor Dropdown -->
+      <div class="nav-item">
+        <a href="/investor">Investor</a>
+        <div class="dropdown-content">
+          <div class="dropdown-container">
+            <!-- Left side: Investor (kept as in other pages) -->
+            <div class="dropdown-left">
+              <img src="{{ url_for('static', filename='images/invp11.jpg') }}" alt="Investor image" class="dropdown-image">
+              <div class="dropdown-text">Investor Relations</div>
+              <div class="dropdown-subtext">
+                Transparency & Strategic Vision
+              </div>
+              <div class="dropdown-description">
+                <p>We prioritize lasting relationships with our investors through clear communication and robust financial performance. Our investor relations team provides timely updates, detailed financial reports, and market insights.</p>
+                <p>Our goal is to empower investors with the information needed for informed, long-term decision-making.</p>
+              </div>
+            </div>
+            <!-- Right side menu: Investor links -->
+            <div class="dropdown-right">
+              <ul class="dropdown-menu">
+                <li><a href="/investor" class="blue-item">Investor Relations</a></li>
+                <li><a href="/financial-reports">Financial Reports</a></li>
+                <li><a href="/market-trends">Market Trends</a></li>
+                <li><a href="/strategic-vision">Strategic Vision</a></li>
+                <li><a href="/shareholder-updates">Shareholder Updates</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Careers Dropdown -->
+      <div class="nav-item careers-dropdown">
+        <a href="/careers">Careers</a>
+        <div class="dropdown-content">
+          <div class="dropdown-container">
+            <!-- Left side: Updated for Careers -->
+            <div class="dropdown-left">
+              <img src="{{ url_for('static', filename='images/carp11.jpg') }}" alt="Careers image" class="dropdown-image">
+              <div class="dropdown-text">Careers</div>
+              <div class="dropdown-subtext">
+                Innovate. Grow. Impact.
+              </div>
+              <div class="dropdown-description">
+                <p>Join a dynamic team where your talent meets opportunity. At BlueWave Petroleum, we offer diverse career paths, professional growth, and an environment that values innovation and collaboration.</p>
+                <p>We are dedicated to nurturing talent and fostering an inclusive, supportive workplace where you can make a real impact.</p>
+              </div>
+            </div>
+            <!-- Right side menu: Careers links -->
+            <div class="dropdown-right">
+              <ul class="dropdown-menu">
+                <li><a href="/careers" class="blue-item">Careers</a></li>
+                <li><a href="/job-openings">Job Openings</a></li>
+                <li><a href="/internships">Internships</a></li>
+                <li><a href="/employee-benefits">Employee Benefits</a></li>
+                <li><a href="/diversity-inclusion">Diversity &amp; Inclusion</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+          <!-- Mobile Nav Overlay -->
+<div id="mobileNavOverlay">
+  <!-- Close button -->
+  <button class="mobile-nav-close" onclick="toggleMobileNav()" aria-label="Close menu">×</button>
+
+  <!-- Panel 1: Top-level menu -->
+  <div class="mobile-menu-panel panel-main">
+    <ul class="mobile-menu-list">
+      <li><button class="menu-btn" data-menu="who">Who we are</button></li>
+      <li><button class="menu-btn" data-menu="what">What we do</button></li>
+      <li><button class="menu-btn" data-menu="sustainability">Sustainability</button></li>
+      <li><button class="menu-btn" data-menu="community">Community</button></li>
+      <li><button class="menu-btn" data-menu="newsroom">Newsroom</button></li>
+      <li><button class="menu-btn" data-menu="investor">Investor</button></li>
+      <li><button class="menu-btn" data-menu="careers">Careers</button></li>
+    </ul>
+  </div>
+
+  <!-- Panel 2: Sub-menu -->
+  <div class="mobile-menu-panel panel-sub">
+    <button class="back-btn" aria-label="Back to menu">‹ Back</button>
+    <h2 class="sub-menu-heading"></h2>
+    <ul class="sub-menu-list"></ul>
+  </div>
+</div>
+
+
+
+
+
+
+
+     <!-- Global & Search Icons -->
+    <div class="nav-icons">
+      <div class="gmail-icon">
+        <a href="/contact-us">
+          <img src="static/images/gmail1.png" alt="Gmail Icon">
+        </a>
+      </div>
+      <div class="global-icon" onclick="toggleGlobalDropdown(event)">
+        <img src="static/images/global1.png" alt="Global">
+        <span>Global</span>
+        <div id="globalDropdown" class="global-dropdown">
+          <a href="index.html" class="active-link" onclick="event.stopPropagation();">Bluewave Oil&amp;Gas</a>
+          <!-- Americas Section -->
+          <a href="javascript:void(0)" onclick="toggleAmericasDropdown(event)">Americas</a>
+          <div id="americasDropdown" class="nested-dropdown" style="display:none;">
+            <div class="nested-item">
+              <span class="not-clickable">Bluewave Oil&amp;Gas (Americas)</span>
+            </div>
+            <div class="nested-item">
+              <a href="javascript:void(0)" class="clickable-item" onclick="toggleAmericasRegionDropdown(event)">Americas Region</a>
+            </div>
+            <div id="americasRegionDropdown" class="nested-dropdown level-2" style="display:none;">
+              <div class="nested-item">
+                <span class="not-clickable">Bluewave Oil&amp;Gas</span>
+              </div>
+              <div class="nested-item">
+                <a href="{{ url_for('americas_region') }}" class="clickable-item">Bluewave Oil&amp;Gas (Americas Region)</a>
+              </div>
+            </div>
+          </div>
+          <!-- Middle East / Africa Section -->
+          <a href="javascript:void(0)" onclick="toggleMiddleEastAfricaDropdown(event)">Middle East / Africa</a>
+          <div id="middleEastAfricaDropdown" class="nested-dropdown" style="display:none;">
+            <div class="nested-item">
+              <span class="not-clickable">Bluewave Oil&amp;Gas (Middle East / Africa)</span>
+            </div>
+            <div class="nested-item">
+              <a href="javascript:void(0)" class="clickable-item" onclick="toggleMiddleEastAfricaRegionDropdown(event)">Middle East / Africa Region</a>
+            </div>
+            <div id="middleEastAfricaRegionDropdown" class="nested-dropdown level-2" style="display:none;">
+              <div class="nested-item">
+                <span class="not-clickable">Bluewave Oil&amp;Gas</span>
+              </div>
+              <div class="nested-item">
+                <a href="{{ url_for('middle_east_africa_region') }}" class="clickable-item">Bluewave Oil&amp;Gas (Middle East / Africa Region)</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="search-icon" id="openSearch">
+        <img src="static/images/search.png" alt="Search">
+      </div>
+    </div>
+  </div>
+  
+  <!-- Full-Width Search Overlay -->
+  <div id="search-overlay">
+    <div id="search-container">
+      <div id="closeOverlay">&times;</div>
+      <div class="search-input-wrapper">
+        <input type="text" id="search" placeholder="Search for topics, articles, data">
+        <button id="searchBtn">Search</button>
+      </div>
+      <ul id="results"></ul>
+    </div>
+  </div> 
+
+
+
+
+
+
+
+      
+  <!-- Page Content -->
+  <div class="photo-container">
+    <img src="{{ url_for('static', filename='images/carp11.jpg') }}" alt="Careers Banner">
+    <div class="photo-text">
+      <h1>Careers</h1>
+      <p>Join our team and build a future with BlueWave Petroleum.</p>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h1>Your Future Starts Here</h1>
+    <p>At BlueWave Petroleum, we believe in empowering talent and fostering innovation. With a diverse range of opportunities across the globe, our team is driven by passion, creativity, and a commitment to excellence. Explore your potential with us and become part of a company that is shaping the future of energy.</p>
+  </div>
+
+  <div class="image-background-wrapper">
+    <div class="intercept-photo">
+      <img src="{{ url_for('static', filename='images/carp1.jpg') }}" alt="Our Purpose in Careers">
+    </div>
+    <div class="blue-background">
+      <div class="top-half">
+        <h2>Our Mission</h2>
+        <p>We aim to create a dynamic work environment where every individual can thrive, innovate, and contribute to our collective success.</p>
+      </div>
+      <div class="bottom-half">
+        <h2>Our Vision</h2>
+        <p>To be an employer of choice that attracts and retains top talent through an inclusive culture, continuous learning, and exciting career opportunities.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-width-white">
+    <div class="shiny-white-container">
+      <h2>What We Value</h2>
+      <div class="core-values-container">
+        <div class="core-values-left">
+          <div class="core-value" onclick="toggleDropdown('innovation')"><span>🚀</span> Innovation +</div>
+          <div id="innovation" class="core-dropdown-content">
+            <ul>
+              <li>Embrace new ideas</li>
+              <li>Drive creative solutions</li>
+            </ul>
+          </div>
+          <div class="core-value" onclick="toggleDropdown('collaboration')"><span>🤝</span> Collaboration +</div>
+          <div id="collaboration" class="core-dropdown-content">
+            <ul>
+              <li>Teamwork across borders</li>
+              <li>Foster inclusive culture</li>
+            </ul>
+          </div>
+          <div class="core-value" onclick="toggleDropdown('growth')"><span>📈</span> Growth +</div>
+          <div id="growth" class="core-dropdown-content">
+            <ul>
+              <li>Continuous learning</li>
+              <li>Career development</li>
+            </ul>
+          </div>
+        </div>
+        <div class="core-values-right">
+          <div class="core-value" onclick="toggleDropdown('integrity')"><span>✅</span> Integrity +</div>
+          <div id="integrity" class="core-dropdown-content">
+            <ul>
+              <li>Honesty in all we do</li>
+              <li>Ethical practices</li>
+            </ul>
+          </div>
+          <div class="core-value" onclick="toggleDropdown('diversity')"><span>🌍</span> Diversity +</div>
+          <div id="diversity" class="core-dropdown-content">
+            <ul>
+              <li>Inclusive work culture</li>
+              <li>Respect for all</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="image-white-background-wrapper">
+    <div class="intercept-photo">
+      <img src="{{ url_for('static', filename='images/carp2.jpg') }}" alt="Our History & Culture">
+    </div>
+    <div class="white-background">
+      <div class="white-content">
+        <h2>Our Culture & History</h2>
+        <p>For over 140 years, BlueWave Petroleum has evolved into a global leader by nurturing talent and embracing change. Discover how our legacy and our culture of innovation make us a great place to build your career.</p>
+        <a href="{{ url_for('history') }}" style="color: #034078; font-weight: bold; text-decoration: none;">
+          Learn more about our journey →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="grey-background-section">
+    <div class="grey-text-container">
+      <h2>Global Opportunities</h2>
+      <p>Our diverse portfolio and international operations provide countless opportunities for professional growth and career advancement.</p>
+      <a href="/global-organization" class="learn-more-link">Learn more about our global presence →</a>
+    </div>
+    <div class="grey-image-container">
+      <img src="{{ url_for('static', filename='images/carp3.jpg') }}" alt="Global Opportunities">
+    </div>
+  </div>
+
+  <div class="image-blue-grey-wrapper">
+    <div class="intercept-photo">
+      <img src="{{ url_for('static', filename='images/carp4.jpg') }}" alt="Join Our Team">
+    </div>
+    <div class="blue-grey-background">
+      <div class="blue-section">
+        <h2>Our Commitment to Employees</h2>
+        <p>We invest in our people, provide competitive benefits, and foster an environment where creativity and collaboration flourish.</p>
+        <p>From flexible work schedules to comprehensive healthcare coverage, our benefits package is designed to support every stage of your life and career.</p> 
+        <p>We believe in empowering everyone to bring their whole selves to work—celebrating diversity, championing inclusion, and promoting wellbeing.</p> 
+      </div>
+      <div class="grey-section">
+        <div class="sustainability-section">
+          <h2>Employee Development</h2>
+          <p>Our comprehensive training programs and mentorship opportunities are designed to help you grow both professionally and personally.</p>
+          <a href="/employee-benefits" class="sustainabilty-button">Explore our benefits</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="explore-more-section">
+    <h2 class="explore-title">Explore More</h2>
+    <div class="explore-container">
+      <div class="explore-item">
+        <img src="{{ url_for('static', filename='images/carp5.jpg') }}" alt="Job Openings">
+        <a href="/job-openings" class="explore-link">Job Openings</a>
+      </div>
+      <div class="explore-item">
+        <img src="{{ url_for('static', filename='images/carp6.jpg') }}" alt="Internships">
+        <a href="/internships" class="explore-link">Internships</a>
+      </div>
+      <div class="explore-item">
+        <img src="{{ url_for('static', filename='images/carp7.jpg') }}" alt="Employee Benefits">
+        <a href="/employee-benefits" class="explore-link">Employee Benefits</a>
+      </div>
+      <div class="explore-item">
+        <img src="{{ url_for('static', filename='images/carp8.jpg') }}" alt="Diversity & Inclusion">
+        <a href="/diversity-inclusion" class="explore-link">Diversity & Inclusion</a>
+      </div>
+      <div class="explore-item">
+        <img src="{{ url_for('static', filename='images/carp9.jpg') }}" alt="Employee Engagement">
+        <a href="/employee-engagement" class="explore-link">Employee Engagement</a>
+      </div>
+      <div class="explore-item">
+        <img src="{{ url_for('static', filename='images/carp10.jpg') }}" alt="Social Programs">
+        <a href="/social-programs" class="explore-link">Social Programs</a>
+      </div>
+    </div>
+  </div>
+
+
+
+        <!-- Footer Section -->
+  <div class="grey-background">
+    <div class="grey-nav">
+      <a href="/careers">Careers</a>
+      <a href="/faq">FAQ</a>
+      <a href="/investor">Investor</a>
+      <a href="/contact-us">Contact Us</a>
+    </div>
+    <div class="grey-socials">
+      
+      <a href="https://x.com/Bluewave_Oil" target="_blank"><img src="{{ url_for('static', filename='images/x.logo.png') }}" alt="X (Twitter)"></a>
+      <a href="https://www.linkedin.com/in/bluewave-oil-837300360/" target="_blank"><img src="{{ url_for('static', filename='images/linkedin.logo.png') }}" alt="LinkedIn"></a>
+      <a href="https://www.youtube.com/feed/you" target="_blank"><img src="{{ url_for('static', filename='images/youtube.logo.png') }}" alt="YouTube"></a>
+    </div>
+    <div class="chat-icon-container" id="footerChatIcon" onclick="toggleChat(event)" style="display: none;">
+      <img src="{{ url_for('static', filename='images/livechatp1.png') }}" alt="Live Chat">
+    </div>
+    <div class="footer-container">
+      <div class="footer-links">
+        <a href="privacy-center">Privacy Center</a>
+        <a href="terms-of-service">Terms of Service</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="resources">Resources</a>
+      </div>
+      <div class="footer-copyright">
+        &copy; 2025 Bluewave Oil. All rights reserved.
+      </div>
+    </div>
+  </div>
+  
+  <!-- Chat Box Section -->
+  <div id="chatBox" class="chat-box">
+    <div class="chat-header">
+      <span>Live Support Chat</span>
+      <button onclick="toggleChat(event)">X</button>
+    </div>
+    <div id="chatMessages" class="chat-messages">
+      <!-- Chat messages will appear here -->
+    </div>
+    <div id="supportContainer" style="display: none; text-align: center; padding: 5px; margin-top: 10px;">
+      <button id="supportButton" onclick="redirectToSupport()">Contact Support</button>
+      <button id="endChatButton" onclick="endChat()" style="display:none;">End Chat</button>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="checkEnter(event)">
+      <button onclick="sendChatMessage()">Send</button>
+    </div>
+  </div>
+  
+  <div class="fixed-chat-icon" id="fixedChatIcon" onclick="toggleChat(event)">
+    <img src="{{ url_for('static', filename='images/livechatp1.png') }}" alt="Live Chat">
+  </div>
+   
+ 
+  
+
+
+
+
+             <!-- JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js"></script>
+  <script>
+       document.addEventListener('DOMContentLoaded', () => {
+  const overlay    = document.getElementById('mobileNavOverlay');
+  const hamburger  = document.querySelector('.hamburger-menu');
+  const closeBtn   = overlay.querySelector('.mobile-nav-close');
+  const backBtn    = overlay.querySelector('.back-btn');
+  const mainPanel  = overlay.querySelector('.panel-main');
+  const subPanel   = overlay.querySelector('.panel-sub');
+  const heading    = overlay.querySelector('.sub-menu-heading');
+  const subList    = overlay.querySelector('.sub-menu-list');
+  const menuBtns   = overlay.querySelectorAll('.menu-btn');
+
+  // complete submenu data
+  const submenuData = {
+    who: [
+      { text: 'Who We Are', href: '/who-we-are' },
+      { text: 'Our Global Organization', href: '/global-organization' },
+      { text: 'Our Approach', href: '/our-approach' },
+      { text: 'Technology & Collaborations', href: '/technology-and-collaborations' },
+      { text: 'Policy', href: '/policy' }
+    ],
+    what: [
+      { text: 'What We Do', href: '/what-we-do' },
+      { text: 'Exploration & Production', href: '/exploration-and-production' },
+      { text: 'Refining & Distribution', href: '/refining-and-distribution' },
+      { text: 'Innovative Solutions', href: '/innovative-solutions' },
+      { text: 'Operational Excellence', href: '/operational-excellence' }
+    ],
+    sustainability: [
+      { text: 'Sustainability Overview', href: '/sustainability' },
+      { text: 'Environmental Impact', href: '/environmental-impact' },
+      { text: 'Resource Efficiency', href: '/resource-efficiency' },
+      { text: 'Green Innovations', href: '/green-innovations' },
+      { text: 'Community Engagement', href: '/community-engagement' }
+    ],
+    community: [
+      { text: 'Community Outreach', href: '/community' },
+      { text: 'Local Partnerships', href: '/local-partnerships' },
+      { text: 'Social Programs', href: '/social-programs' },
+      { text: 'Employee Engagement', href: '/employee-engagement' },
+      { text: 'Volunteer Initiatives', href: '/volunteer-initiatives' }
+    ],
+    newsroom: [
+      { text: 'Newsroom', href: '/newsroom' },
+      { text: 'Press Releases', href: '/press-releases' },
+      { text: 'Media Coverage', href: '/media-coverage' },
+      { text: 'Industry Insights', href: '/industry-insights' },
+      { text: 'Expert Commentary', href: '/expert-commentary' }
+    ],
+    investor: [
+      { text: 'Investor Relations', href: '/investor' },
+      { text: 'Financial Reports', href: '/financial-reports' },
+      { text: 'Market Trends', href: '/market-trends' },
+      { text: 'Strategic Vision', href: '/strategic-vision' },
+      { text: 'Shareholder Updates', href: '/shareholder-updates' }
+    ],
+    careers: [
+      { text: 'Careers', href: '/careers' },
+      { text: 'Job Openings', href: '/job-openings' },
+      { text: 'Internships', href: '/internships' },
+      { text: 'Employee Benefits', href: '/employee-benefits' },
+      { text: 'Diversity & Inclusion', href: '/diversity-inclusion' }
+    ]
+  };
+
+  // open/close overlay
+  function openNav() {
+    overlay.style.display = 'block';
+    requestAnimationFrame(() => overlay.classList.add('open'));
+  }
+  function closeNav() {
+    overlay.classList.remove('open');
+    overlay.addEventListener('transitionend', function hide() {
+      overlay.style.display = 'none';
+      overlay.removeEventListener('transitionend', hide);
+    });
+    // reset panels
+    mainPanel.classList.remove('hidden');
+    subPanel.classList.remove('active');
+  }
+
+  hamburger.addEventListener('click', e => {
+    e.stopPropagation();
+    overlay.classList.contains('open') ? closeNav() : openNav();
+  });
+  closeBtn.addEventListener('click', closeNav);
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) closeNav();
+  });
+
+  // panel switching
+  menuBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.getAttribute('data-menu');
+      const items = submenuData[key] || [];
+      heading.textContent = btn.textContent;
+      subList.innerHTML = '';
+      items.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="${item.href}">${item.text}</a>`;
+        subList.appendChild(li);
+      });
+      mainPanel.classList.add('hidden');
+      subPanel.classList.add('active');
+    });
+  });
+
+  backBtn.addEventListener('click', () => {
+    subPanel.classList.remove('active');
+    mainPanel.classList.remove('hidden');
+  });
+});
+       
+   
+       // ── On mobile, turn “Americas” & “Middle East / Africa” into direct links ──
+if (window.innerWidth <= 768) {
+  // Americas
+  const americasBtn = document.querySelector('#globalDropdown > a[onclick^="toggleAmericasDropdown"]');
+  const americasTarget = document.querySelector('#americasRegionDropdown .clickable-item');
+  if (americasBtn && americasTarget) {
+    americasBtn.removeAttribute('onclick');
+    americasBtn.setAttribute('href', americasTarget.getAttribute('href'));
+  }
+  // Middle East / Africa
+  const meaBtn = document.querySelector('#globalDropdown > a[onclick^="toggleMiddleEastAfricaDropdown"]');
+  const meaTarget = document.querySelector('#middleEastAfricaRegionDropdown .clickable-item');
+  if (meaBtn && meaTarget) {
+    meaBtn.removeAttribute('onclick');
+    meaBtn.setAttribute('href', meaTarget.getAttribute('href'));
+  }
+}
+
+   
+    // Toggle Global Dropdown
+    function toggleGlobalDropdown(event) {
+      event.stopPropagation();
+      var dropdown = document.getElementById('globalDropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+    // Toggle nested Americas dropdown
+    function toggleAmericasDropdown(event) {
+      event.stopPropagation();
+      var americasDropdown = document.getElementById('americasDropdown');
+      document.getElementById('americasRegionDropdown').style.display = 'none';
+      americasDropdown.style.display = americasDropdown.style.display === 'block' ? 'none' : 'block';
+    }
+    // Toggle Americas Region dropdown
+    function toggleAmericasRegionDropdown(event) {
+      event.stopPropagation();
+      var americasRegionDropdown = document.getElementById('americasRegionDropdown');
+      americasRegionDropdown.style.display = americasRegionDropdown.style.display === 'block' ? 'none' : 'block';
+    }
+    // Toggle Middle East / Africa Dropdown
+    function toggleMiddleEastAfricaDropdown(event) {
+      event.stopPropagation();
+      var dropdown = document.getElementById('middleEastAfricaDropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+    // Toggle Middle East / Africa Region Dropdown
+    function toggleMiddleEastAfricaRegionDropdown(event) {
+      event.stopPropagation();
+      var dropdown = document.getElementById('middleEastAfricaRegionDropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+    
+    document.addEventListener('click', function() {
+      document.getElementById('globalDropdown').style.display = 'none';
+      document.getElementById('americasDropdown').style.display = 'none';
+      document.getElementById('americasRegionDropdown').style.display = 'none';
+      document.getElementById('middleEastAfricaDropdown').style.display = 'none';
+      document.getElementById('middleEastAfricaRegionDropdown').style.display = 'none';
+    });
+    
+    // Search Overlay Functionality
+    $('#openSearch').on('click', function(e) {
+      e.stopPropagation();
+      $('#search-overlay').fadeIn();
+      $('#search').focus();
+    });
+    $('#closeOverlay').on('click', function() {
+      $('#search-overlay').fadeOut();
+    });
+    $(document).on('click', function(e) {
+      if (!$(e.target).closest('#search-container, #openSearch').length) {
+        $('#search-overlay').fadeOut();
+      }
+    });
+    $('#search-container').on('click', function(e) {
+      e.stopPropagation();
+    });
+    
+    var idx = null;
+    var documents = [];
+    $.getJSON('/static/search/search_index.json', function(data) {
+      documents = data;
+      idx = lunr(function () {
+        this.ref('url');
+        this.field('title');
+        this.field('content');
+        documents.forEach(function(doc) {
+          this.add(doc);
+        }, this);
+      });
+    });
+    function performSearch() {
+      var query = $('#search').val().trim();
+      $('#results').empty();
+      if (query.length < 2 || !idx) { return; }
+      var results = idx.search(query);
+      results.forEach(function(result) {
+        var doc = documents.find(function(item) { return item.url === result.ref; });
+        if (doc) {
+          var snippet = doc.content.substring(0, 150) + '...';
+          $('#results').append('<li><a href="' + doc.url + '">' + doc.title + '</a><br>' +
+            '<span class="snippet">' + snippet + '</span></li>');
+        }
+      });
+    }
+    $('#search').on('keyup', performSearch);
+    $('#searchBtn').on('click', performSearch); 
+
+
+
+
+
+
+
+
+
+  
+    // Chat functions
+    let messageCount = 0;
+    function toggleChat(event) {
+      if(event) event.stopPropagation();
+      var chatBox = document.getElementById("chatBox");
+      chatBox.style.display = chatBox.style.display === "block" ? "none" : "block";
+    }
+    function checkEnter(event) {
+      if (event.key === "Enter") { sendChatMessage(); }
+    }
+    function sendChatMessage() {
+      var input = document.getElementById("chatInput");
+      var message = input.value.trim();
+      if (message !== "") {
+        var chatMessages = document.getElementById("chatMessages");
+        var userMessageDiv = document.createElement("div");
+        userMessageDiv.className = "chat-message";
+        userMessageDiv.textContent = "You: " + message;
+        userMessageDiv.style.textAlign = "left";
+        chatMessages.appendChild(userMessageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        input.value = "";
+        document.getElementById("supportContainer").style.display = "none";
+        messageCount++;
+        setTimeout(function() { autoReply(); }, 1000);
+      }
+    }
+    function autoReply() {
+      var replyText = "";
+      if (messageCount === 1) {
+        replyText = "Thank you for reaching out. For more details, please check our <a href='/faq'>FAQ</a>. If this doesn't answer your question, click 'Contact Support'.";
+      } else if (messageCount === 2) {
+        replyText = "We appreciate your follow-up. If you need further assistance, please click 'Contact Support' so one of our agents can help you.";
+      } else if (messageCount >= 3) {
+        replyText = "It seems you have more questions. To continue, please click the 'End Chat' button below and then reach out via our support page for detailed assistance.";
+        document.getElementById("supportButton").style.display = "none";
+        document.getElementById("endChatButton").style.display = "inline-block";
+      }
+      var chatMessages = document.getElementById("chatMessages");
+      var replyDiv = document.createElement("div");
+      replyDiv.className = "chat-message";
+      replyDiv.innerHTML = "<div class='live-support-box'>Live Support: " + replyText + "</div>";
+      replyDiv.style.textAlign = "right";
+      replyDiv.style.fontWeight = "bold";
+      chatMessages.appendChild(replyDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      document.getElementById("supportContainer").style.display = "block";
+    }
+    function redirectToSupport() {
+      window.location.href = "{{ url_for('contact_us') }}";
+    }
+    function endChat() {
+      alert("Chat session ended. Please click 'Contact Support' if needed.");
+      messageCount = 0;
+      document.getElementById("chatMessages").innerHTML = "";
+      document.getElementById("supportButton").style.display = "inline-block";
+      document.getElementById("endChatButton").style.display = "none";
+      document.getElementById("supportContainer").style.display = "none";
+    }
+
+    // IntersectionObserver to toggle chat icon visibility based on footer visibility
+    const footer = document.querySelector('.grey-background');
+    const fixedChatIcon = document.getElementById("fixedChatIcon");
+    const footerChatIcon = document.getElementById("footerChatIcon");
+    const footerObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          footerChatIcon.style.display = 'block';
+          fixedChatIcon.style.display = 'none';
+        } else {
+          footerChatIcon.style.display = 'none';
+          fixedChatIcon.style.display = 'block';
+        }
+      });
+    }, { threshold: 0.1 });
+    if (footer) {
+      footerObserver.observe(footer);
+    }
+
+    // Document click handler to close the chat box when clicking outside it
+    document.addEventListener('click', function(e) {
+      var chatBox = document.getElementById("chatBox");
+      if (chatBox.style.display === "block" && !e.target.closest(".chat-box")) {
+        chatBox.style.display = "none";
+      }
+    });
+
+    // Toggle function for Core Dropdowns
+    function toggleDropdown(id) {
+      var dropdown = document.getElementById(id);
+      if (dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+      } else {
+        dropdown.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>

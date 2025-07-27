@@ -1,0 +1,311 @@
+Folder PATH listing
+Volume serial number is 68AD-4F47
+C:.
+|   app.py
+|   BluewavePetroleum.zip.zip
+|   structure.txt
+|   
++---data
+|       users.db
+|       
++---instance
++---migrations
+|   |   alembic.ini
+|   |   env.py
+|   |   README
+|   |   script.py.mako
+|   |   
+|   +---versions
+|   |   |   2c7c2e35fa0c_initial_migration_with_user_model.py
+|   |   |   4d49132624be_add_newslettersubscriber_model.py
+|   |   |   
+|   |   \---__pycache__
+|   |           2c7c2e35fa0c_initial_migration_with_user_model.cpython-312.pyc
+|   |           4d49132624be_add_newslettersubscriber_model.cpython-312.pyc
+|   |           
+|   \---__pycache__
+|           env.cpython-312.pyc
+|           
++---static
+|   |   manifest.json
+|   |   sw.js
+|   |   
+|   +---icons
+|   |       icon-192.png
+|   |       icon-512.png
+|   |       
+|   +---images
+|   |       africap1.jpg
+|   |       africap2.jpg
+|   |       africap3.jpg
+|   |       africap4.jpg
+|   |       africap5.jpg
+|   |       americasp1.jpg
+|   |       americasp2.jpg
+|   |       americasp3.jpg
+|   |       americasp4.jpg
+|   |       approachp1.jpg
+|   |       bluewavepv1.mp4
+|   |       bluewavepv2.mp4
+|   |       bluewavepv3.mp4
+|   |       bluewavepv4.jpg
+|   |       bluewave_logo.webp
+|   |       bluewave_logo1.webp
+|   |       carp1.jpg
+|   |       carp10.jpg
+|   |       carp11.jpg
+|   |       carp2.jpg
+|   |       carp3.jpg
+|   |       carp4.jpg
+|   |       carp5.jpg
+|   |       carp6.jpg
+|   |       carp7.jpg
+|   |       carp8.jpg
+|   |       carp9.jpg
+|   |       communityp1.jpg
+|   |       comp1.jpg
+|   |       comp10.jpg
+|   |       comp11.jpg
+|   |       comp2.jpg
+|   |       comp3.jpg
+|   |       comp4.jpg
+|   |       comp5.jpg
+|   |       comp6.jpg
+|   |       comp7.jpg
+|   |       comp8.jpg
+|   |       comp9.jpg
+|   |       conp1.jpg
+|   |       conp3.webp
+|   |       conp4.jpg
+|   |       contactp1.jpg
+|   |       DALLúE 2025-03-14 11.48.06 - A professional logo for 'BlueWave Petroleum'. The logo should feature a modern, clean wave design in shades of blue, symbolizing energy and fluidity. .webp
+|   |       diversityp1.jpg
+|   |       dropdownp1.jpg
+|   |       dropdownp2.jpg
+|   |       dropdownp3.jpg
+|   |       dropdownp4.jpg
+|   |       dropdownp5.jpg
+|   |       dropdownp6.jpg
+|   |       dropdownp7.jpg
+|   |       employeep1.jpg
+|   |       engp1.jpg
+|   |       engp2.jpg
+|   |       engp3.jpg
+|   |       engp4.jpg
+|   |       engp5.jpg
+|   |       engp7.jpg
+|   |       engp8.jpg
+|   |       environmentp1.jpg
+|   |       exp1.jpg
+|   |       exp2.jpg
+|   |       exp3.jpg
+|   |       exp4.jpg
+|   |       exp5.jpg
+|   |       exp6.jpg
+|   |       expertp1.jpg
+|   |       expertp2.jpg
+|   |       explorationp1.jpg
+|   |       explorationp2.jpg
+|   |       facebook.logo.png
+|   |       financialp1.jpg
+|   |       financialp2.jpg
+|   |       financialp3.jpg
+|   |       financialp4.jpg
+|   |       financialp5.jpg
+|   |       financialp6.jpg
+|   |       financialp7.jpg
+|   |       global1.png
+|   |       globalp1.jpg
+|   |       globalp2.jpg
+|   |       globalp3.jpg
+|   |       globalp4.jpg
+|   |       globalp5.jpg
+|   |       globalp6.jpg
+|   |       gmail1.png
+|   |       greenp1.jpg
+|   |       hisp1.jpg
+|   |       hisp2.jpg
+|   |       hisp3.jpg
+|   |       hisp4.jpg
+|   |       hisp5.jpg
+|   |       industryp1.jpg
+|   |       innovativep1.jpg
+|   |       instagram.logo.png
+|   |       internshipsp1.jpg
+|   |       internshipsp2.jpg
+|   |       invp1.jpg
+|   |       invp10.jpg
+|   |       invp11.jpg
+|   |       invp12.jpg
+|   |       invp13.jpg
+|   |       invp14.jpg
+|   |       invp2.jpg
+|   |       invp3.jpg
+|   |       invp4.jpg
+|   |       invp5.jpg
+|   |       invp6.jpg
+|   |       invp7.jpg
+|   |       invp8.jpg
+|   |       invp9.jpg
+|   |       jobp1.jpg
+|   |       jobp2.jpg
+|   |       jobp3.jpg
+|   |       jobp4.jpg
+|   |       jobp5.jpg
+|   |       jobp6.jpg
+|   |       jobp7.jpg
+|   |       linkedin.logo.png
+|   |       livechatp1.png
+|   |       localp1.jpg
+|   |       localp2.jpg
+|   |       localp3.jpg
+|   |       localp4.jpg
+|   |       localp5.jpg
+|   |       localp6.jpg
+|   |       localp7.jpg
+|   |       map2.jpg
+|   |       map3.jpg
+|   |       map6.jpg
+|   |       marketp1.jpg
+|   |       mediap1.jpg
+|   |       medp2.jpg
+|   |       medp3.jpg
+|   |       medp4.jpg
+|   |       medp5.jpg
+|   |       medp6.jpg
+|   |       newp1.jpg
+|   |       newp10.jpg
+|   |       newp11.jpg
+|   |       newp12.jpg
+|   |       newp2.jpg
+|   |       newp3.jpg
+|   |       newp4.jpg
+|   |       newp5.jpg
+|   |       newp6.jpg
+|   |       newp7.jpg
+|   |       newp8.jpg
+|   |       newp9.jpg
+|   |       oilp1.jpg
+|   |       operationp1.jpg
+|   |       operationp2.jpg
+|   |       policyp1.jpg
+|   |       policyp2.jpg
+|   |       pressp1.jpg
+|   |       pressp2.jpg
+|   |       pressp3.jpg
+|   |       pressp4.jpg
+|   |       pressp5.jpg
+|   |       pressp6.jpg
+|   |       pressp7.jpg
+|   |       refiningp1.jpg
+|   |       resourcep1.jpg
+|   |       search.png
+|   |       search1.jpg
+|   |       shareholderp1.jpg
+|   |       socialp1.jpg
+|   |       strategicp1.jpg
+|   |       susp1.jpg
+|   |       susp10.jpg
+|   |       susp11.jpg
+|   |       susp2.jpg
+|   |       susp3.jpg
+|   |       susp4.jpg
+|   |       susp5.jpg
+|   |       susp6.jpg
+|   |       susp7.jpg
+|   |       susp8.jpg
+|   |       susp9.jpg
+|   |       tcp1.png
+|   |       tcp2.jpg
+|   |       technologyp1.jpg
+|   |       tsp1.jpg
+|   |       volunteerp1.jpg
+|   |       whowearep1.jpg
+|   |       whowearep10.jpg
+|   |       whowearep11.jpg
+|   |       whowearep12.jpg
+|   |       whowearep2.jpg
+|   |       whowearep3.jpg
+|   |       whowearep4.jpg
+|   |       whowearep5.jpg
+|   |       whowearep6.jpg
+|   |       whowearep7.jpg
+|   |       whowearep8.jpg
+|   |       whowearep9.jpg
+|   |       wwdp1.jpg
+|   |       wwdp10.jpg
+|   |       wwdp2.jpg
+|   |       wwdp3.jpg
+|   |       wwdp4.jpg
+|   |       wwdp5.jpg
+|   |       wwdp6.jpg
+|   |       wwdp7.jpg
+|   |       wwdp8.jpg
+|   |       wwdp9.jpg
+|   |       x.logo.png
+|   |       youtube.logo.png
+|   |       
+|   \---search
+|           search_index.json
+|           
++---templates
+|       admin.html
+|       americas-region.html
+|       base.html
+|       careers.html
+|       community-engagement.html
+|       community.html
+|       contact-us.html
+|       diversity-inclusion.html
+|       employee-benefits.html
+|       employee-engagement.html
+|       energy-needs.html
+|       environmental-impact.html
+|       expert-commentary.html
+|       exploration-production.html
+|       faq.html
+|       financial-reports.html
+|       forgot_password.html
+|       forgot_password_email.html
+|       green-innovations.html
+|       history.html
+|       index.html
+|       industry-insights.html
+|       innovative-solutions.html
+|       internships.html
+|       investor.html
+|       job-openings.html
+|       local-partnerships.html
+|       login.html
+|       market-trends.html
+|       media-coverage.html
+|       middle-east-africa.html
+|       newsroom.html
+|       operational-excellence.html
+|       our-approach.html
+|       our-global-organization.html
+|       policy.html
+|       press-releases.html
+|       privacy-center.html
+|       privacy-policy.html
+|       profile.html
+|       refining-distribution.html
+|       reset_password.html
+|       resource-efficiency.html
+|       resources.html
+|       search.html
+|       shareholder-updates.html
+|       signup.html
+|       social-programs.html
+|       strategic-vision.html
+|       sustainability.html
+|       technology-and-collaborations.html
+|       terms-of-service.html
+|       verify_email.html
+|       volunteer-initiatives.html
+|       what-we-do.html
+|       who-we-are.html
+|       
+\---__pycache__
+        app.cpython-312.pyc
+        

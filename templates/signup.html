@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up | ClassyPorn</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* Outer red background with a white inner sign-up box */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #e50914; /* Outer red background */
+    }
+    .signup-container {
+      width: 100%;
+      max-width: 400px;
+      margin: 80px auto;
+      background: #fff; /* White inner container */
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      color: #333;
+    }
+    .signup-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .signup-header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #e50914; /* Website name in red */
+    }
+    .signup-header p {
+      color: #777;
+      margin: 5px 0 0;
+    }
+    .signup-form {
+      display: flex;
+      flex-direction: column;
+    }
+    .signup-form label {
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+    .signup-form input {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box; /* Ensure padding is included in total width */
+    }
+    .signup-form button {
+      padding: 12px;
+      background-color: #e50914;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .signup-form button:hover {
+      background-color: #bf0810;
+    }
+    .signup-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #777;
+    }
+    .signup-footer a {
+      color: #e50914;
+      text-decoration: none;
+    }
+    .signup-footer a:hover {
+      text-decoration: underline;
+    }
+    /* Password container styles */
+    .password-container {
+      position: relative;
+    }
+    .password-container input {
+      width: 100%;
+      padding-right: 40px; /* Space for the eye icon */
+      box-sizing: border-box; /* Ensure same overall width */
+    }
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <div class="signup-header">
+      <h1>ClassyPorn</h1>
+      <p>Create your account</p>
+    </div>
+    <form class="signup-form" action="/signup" method="POST" onsubmit="showVerificationMessage()">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <label for="password">Password</label>
+      <div class="password-container">
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <span class="toggle-password" onclick="togglePassword('password')">
+          <i class="fa fa-eye"></i>
+        </span>
+      </div>
+
+      <label for="confirm-password">Confirm Password</label>
+      <div class="password-container">
+        <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm your password" required>
+        <span class="toggle-password" onclick="togglePassword('confirm-password')">
+          <i class="fa fa-eye"></i>
+        </span>
+      </div>
+
+      <button type="submit">Sign Up</button>
+    </form>
+    <div class="signup-footer">
+      Already have an account? <a href="/login">Log In</a>
+    </div>
+  </div>
+  <script>
+    function togglePassword(id) {
+      var input = document.getElementById(id);
+      if (input.type === "password") {
+        input.type = "text";
+      } else {
+        input.type = "password";
+      }
+    }
+    function showVerificationMessage() {
+      alert("Thank you for signing up! Please check your email for a verification link to activate your account.");
+    }
+  </script>
+</body>
+</html>

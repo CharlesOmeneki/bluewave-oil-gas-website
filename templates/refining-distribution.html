@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Refining & Distribution</title>
+  <style>
+    /* Reset & Base */
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    a { text-decoration: none; }
+    
+    /* ---------------- Top Banner & Navigation ---------------- */
+    .top-banner {
+      width: 100%;
+      height: 160px;
+      background-color: #5ca0d3;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+    .logo-container img {
+      height: 120px;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 20px;
+      margin-left: 40px;
+    }
+    .nav-item {
+      position: relative;
+    }
+    .nav-item a {
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .nav-item a:hover {
+      text-decoration: underline;
+    }
+    /* For Who We Are: adjust dropdown position */
+    .nav-item:first-child .dropdown-content {
+      left: -150px;
+      transform: none;
+      height: auto;
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+    }
+    /* Dropdown Content for Nav Items */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50vw;
+      height: 450px;
+      background-color: white;
+      border: 1px solid #ccc;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+    .nav-item:hover .dropdown-content {
+      display: block;
+    }
+    .dropdown-container {
+      display: flex;
+      height: 100%;
+    }
+    .dropdown-left,
+    .dropdown-right {
+      width: 50%;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .dropdown-left {
+      border-right: 1px solid #ccc;
+    }
+    .dropdown-left img.dropdown-image {
+      max-height: 180px;
+      width: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .dropdown-text {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .dropdown-subtext {
+      margin-top: 5px;
+      font-size: 14px;
+      font-weight: normal;
+      text-align: center;
+      color: #555;
+    }
+    .dropdown-description p {
+      margin: 8px 0;
+      font-size: 14px;
+      color: #555;
+      text-align: left;
+    }
+    .dropdown-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .dropdown-menu li {
+      margin: 12px 0;
+    }
+    .dropdown-menu li a {
+      font-weight: bold;
+      font-size: 16px;
+      color: #000;
+      display: block;
+      padding: 5px;
+    }
+    .dropdown-menu li a.blue-item {
+      color: blue;
+    }
+    .dropdown-menu li a.blue-item::before {
+      content: "→ ";
+      color: blue;
+    }
+    
+    /* ---------------- Global & Search Icons (Right Side) ---------------- */
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-left: auto;
+      margin-right: 30px;
+      position: relative;
+    }
+    .gmail-icon {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .gmail-icon img {
+      width: 44px;
+      height: 44px;
+      transition: opacity 0.3s ease;
+    }
+    .gmail-icon img:hover {
+      opacity: 0.7;
+    }
+    .global-icon {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+    }
+    .global-icon img,
+    .search-icon img {
+      width: 44px;
+      height: 44px;
+    }
+    .search-icon {
+      filter: invert(29%) sepia(94%) saturate(467%) hue-rotate(185deg) brightness(97%) contrast(94%);
+      cursor: pointer;
+    }
+    /* Global Dropdown (Nested in Global Icon) */
+    .global-dropdown {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 450px;
+      height: 450px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .global-dropdown a {
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      color: #034078;
+      font-size: 18px;
+      border-bottom: 1px solid #ddd;
+    }
+    .global-dropdown a:last-child {
+      border-bottom: none;
+    }
+    .global-dropdown a.active-link {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    .global-dropdown a:hover {
+      background: #f2f2f2;
+    }
+    /* Nested Dropdown inside Global Dropdown */
+    .nested-dropdown {
+      margin-left: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      height: 200px;
+    }
+    .nested-dropdown.level-2 {
+      margin-top: 10px;
+      height: 150px;
+    }
+    .not-clickable {
+      font-size: 18px;
+      font-weight: bold;
+      display: block;
+      padding: 5px 0;
+    }
+    .clickable-item {
+      font-size: 14px;
+      font-weight: lighter;
+      color: #034078;
+      display: block;
+      padding: 5px 0;
+      cursor: pointer;
+    }
+    .clickable-item:hover {
+      text-decoration: underline;
+    }
+    
+    /* ---------------- Full-Width Search Overlay ---------------- */
+    #search-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 2000;
+    }
+    #search-container {
+      background: #fff;
+      padding: 20px 20px 40px 20px;
+      width: 100%;
+      box-sizing: border-box;
+      position: relative;
+    }
+    #closeOverlay {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+    }
+    .search-input-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    #search {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+    }
+    #searchBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-left: none;
+      border-radius: 0 4px 4px 0;
+      background-color: #5ca0d3;
+      color: white;
+      cursor: pointer;
+    }
+    #results {
+      list-style: none;
+      padding: 0;
+      margin: 20px auto 0 auto;
+      max-width: 800px;
+      text-align: left;
+    }
+    #results li {
+      background: #f9f9f9;
+      margin: 5px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    #results li a {
+      text-decoration: none;
+      color: #034078;
+      font-weight: bold;
+    }
+    #results li a:hover {
+      text-decoration: underline;
+    }
+    
+    /* ---------------- Photo Banner Section ---------------- */
+    .photo-banner {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      background: url("{{ url_for('static', filename='images/refiningp1.jpg') }}") no-repeat center center;
+      background-size: cover;
+      margin-top: -20px;
+    }
+    .photo-banner .overlay-text {
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+      text-align: left;
+      color: white;
+    }
+    .photo-banner .overlay-text h1 {
+      margin: 0;
+      font-size: 36px;
+      font-weight: bold;
+    }
+    .photo-banner .overlay-text p {
+      margin: 5px 0 0;
+      font-size: 18px;
+    }
+    
+    /* ---------------- Refining & Distribution Content Section (Body Changes Only) ---------------- */
+    .org-content {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+      text-align: left;
+      line-height: 1.6;
+    }
+    .org-content h2 {
+      font-size: 36px;
+      color: #034078;
+      margin-bottom: 20px;
+    }
+    .org-content p {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    /* First Additional Writeup Section */
+    .org-additional-content {
+      background: #e3f2fd; /* Light blue background */
+      color: #034078;     
+      padding: 40px 20px;
+      border-radius: 8px;
+      margin: 30px 0;
+      text-align: left;
+    }
+    .org-additional-content h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    .org-additional-content p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    /* Second Additional Writeup Section */
+    .org-second-writeup {
+      background: #fff3e0; /* Light orange background */
+      color: #e65100;     
+      padding: 40px 20px;
+      border-radius: 8px;
+      margin: 30px 0;
+      text-align: left;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .org-second-writeup h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    .org-second-writeup p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    /* New Three-Box Writeup Section */
+    .three-writeup-section {
+      display: flex;
+      margin: 30px 0;
+    }
+    .writeup-box {
+      flex: 1;
+      height: 200px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .writeup-box:nth-child(1) {
+      background: #e0f7fa;
+      color: #00796b;
+    }
+    .writeup-box:nth-child(2) {
+      background: #f3e5f5;
+      color: #6a1b9a;
+    }
+    .writeup-box:nth-child(3) {
+      background: #fff9c4;
+      color: #f57f17;
+    }
+    .org-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    .org-gallery .gallery-item {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .org-gallery .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .org-gallery .gallery-item .caption {
+      padding: 10px;
+      background: #f7f7f7;
+      font-size: 16px;
+      color: #034078;
+      font-weight: bold;
+    }
+    
+    /* ---------------- Footer Section (Same as Global Organization Page) ---------------- */
+    .grey-background {
+      background-color: #333;
+      padding: 50px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      width: 100%;
+      min-height: 50px;
+    }
+    .grey-nav {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+    }
+    .grey-nav a {
+      color: white;
+      text-decoration: none;
+      margin-right: 15px;
+      font-weight: bold;
+    }
+    .grey-socials {
+      position: absolute;
+      top: 10px;
+      right: 50px;
+    }
+    .grey-socials a img {
+      width: 30px;
+      height: 30px;
+      margin-left: 10px;
+    }
+    /* Live Chat Icon Container (as in Global Organization Page) */
+    .chat-icon-container {
+      position: absolute;
+      top: 10px;
+      right: 100px;
+      cursor: pointer;
+    }
+    .chat-icon-container img {
+      width: 30px;
+      height: 30px;
+    }
+    .footer-container {
+      width: 100%;
+      text-align: center;
+    }
+    .footer-links {
+      margin-bottom: 10px;
+    }
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .footer-copyright {
+      color: white;
+      font-size: 14px;
+    }
+    
+    /* ---------------- Chat Box Styles (from Global Organization Page) ---------------- */
+    .chat-box {
+      position: fixed;
+      bottom: 70px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      display: none;
+      flex-direction: column;
+      z-index: 1000;
+    }
+    .chat-header {
+      background-color: #5ca0d3;
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 14px;
+      text-align: left;
+      max-height: 300px;
+    }
+    .chat-message {
+      margin-bottom: 10px;
+    }
+    .live-support-box {
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      padding: 8px;
+      border-radius: 5px;
+      display: inline-block;
+      max-width: 80%;
+    }
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+    .chat-input input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+    }
+    .chat-input button {
+      padding: 10px;
+      background-color: #5ca0d3;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    
+    /* ---------------- Live Chat Icon (Fixed) ---------------- */
+    .fixed-chat-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      cursor: pointer;
+    }
+    .fixed-chat-icon img {
+      width: 40px;
+      height: 40px;
+    }
+
+
+
+
+
+
+
+
+
+            /* ─── Base Hamburger Styling (matches index) ─── */
+.hamburger-menu {
+  display: none !important;           /* hide on desktop */
+  font-size: 30px !important;         /* same size as index */
+  background: none !important;
+  border: none !important;
+  color: white !important;
+  cursor: pointer !important;
+  margin-left: auto !important;       /* right‐align in flex container */
+  margin-right: 20px !important;
+}
+
+/* ─── Hide the mobile nav overlay on all viewports by default ─── */
+#mobileNavOverlay {
+  display: none;
+}
+
+/* Hide hamburger on desktop */
+.hamburger-menu {
+  display: none !important;
+}
+
+/* ❌ Hide Global Slider on Desktop */
+.mobile-global-slider-section {
+  display: none;
+}
+
+
+
+
+@media (max-width: 768px) {
+  /* ───────────── Mobile-Only Nav Styles ───────────── */
+
+  /* 1) Hide the desktop menu links */
+  .nav-menu {
+    display: none !important;
+  }
+
+  /* 2) Show the hamburger button */
+  .hamburger-menu {
+    display: block !important;
+    position: relative;
+    z-index: 1001;
+  }
+
+  /* 3) Show right-side icons in mobile */
+  .nav-icons {
+    display: flex !important;
+    margin-left: auto !important;
+    margin-right: 20px !important;
+    gap: 10px;
+  }
+  .gmail-icon img,
+  .global-icon img,
+  .search-icon img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  /* 4) Full-screen, slide-in overlay */
+  #mobileNavOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #004080;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 3000;
+    padding-top: 80px;
+    overflow-y: auto;
+  }
+  #mobileNavOverlay.open {
+    transform: translateX(0);
+  }
+
+  /* 5) Close button (“×”) */
+  .mobile-nav-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    z-index: 3001;
+  }
+
+  /* 6) Two-panel wrapper */
+  .mobile-menu-panel {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out;
+    background: transparent;
+  }
+  .panel-main { transform: translateX(0); }
+  .panel-sub  { transform: translateX(100%); }
+  .panel-main.hidden { transform: translateX(-100%); }
+  .panel-sub.active { transform: translateX(0); }
+
+  /* 7) “Back” button inside submenu */
+  .back-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    text-align: left;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  /* 8) Submenu heading */
+  .sub-menu-heading {
+    color: #fff;
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem;
+    padding: 0 1.5rem;
+    background: #0053a0;
+  }
+
+  /* 9) Lists */
+  .mobile-menu-list,
+  .sub-menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    overflow-y: auto;
+  }
+  .mobile-menu-list li + li {
+    border-top: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* 10) Top-level menu buttons with arrow indicator */
+  .menu-btn {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1.1rem;
+    color: #fff;
+    cursor: pointer;
+    position: relative;               /* for the pseudo-element */
+  }
+  .menu-btn::after {
+    content: "▸";
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: #ccc;
+  }
+  .menu-btn:hover {
+    background: rgba(255,255,255,0.1);
+  }
+
+  /* 11) Sub-menu links */
+  .sub-menu-list li + li a {
+    border-top: 1px solid rgba(255,255,255,0.2);
+  }
+  .sub-menu-list a {
+    display: block;
+    padding: 0.75rem 2.5rem;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .sub-menu-list a:hover {
+    background: rgba(255,255,255,0.1);
+  }
+
+
+ 
+ /* ── Nudge fully into view on mobile ── */
+.top-banner {
+  position: relative !important;
+}
+
+.hamburger-menu {
+  position: absolute !important;
+  top: 10px !important;
+  right: 0 !important;
+  left: auto !important;
+  margin: 0 !important;
+  /* slide left 120% of its own width instead of 100% */
+  transform: translateX(-120%) !important;
+  z-index: 3 !important;
+}
+
+
+
+
+   /* ── Shift search icon fully into view on mobile ── */
+.search-icon {
+  position: relative !important;
+  transform: translateX(-7px) !important;  /* pull it left by 7px */
+}
+
+    
+    
+    
+      /* ----- Top Banner Icons Smaller on Mobile ----- */
+  .gmail-icon img,
+  .global-icon img,
+  .search-icon img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+    /* ----- Full-Width, Fixed-Height Global Dropdown on Mobile ----- */
+  .global-dropdown {
+    position: fixed !important;
+    top: 100px !important;           /* directly below the 100px-tall banner */
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;          /* span entire viewport width */
+    height: 150px !important;        /* your requested fixed height */
+    max-height: none !important;
+    overflow-y: auto !important;     /* scroll if content exceeds 100px */
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+    padding: 10px !important;        /* inner padding for text comfort */
+    z-index: 2000 !important;        /* sit atop page content */
+  }
+
+  /* ----- Level-1 Nested Dropdown (inside the global dropdown) ----- */
+  .nested-dropdown {
+    position: absolute !important;
+    top: 0 !important;               /* flush to top inside the fixed parent */
+    left: 0 !important;
+    width: 100% !important;
+    height: 150px !important;         /* slightly shorter */
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+    padding: 10px 20px  !important;   /* indent for visual hierarchy */
+  }
+
+  /* ----- Level-2 Nested Dropdown ----- */
+  .nested-dropdown.level-2 {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 150px !important;         /* your requested height */
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+    padding: 10px 30px !important;
+  }
+
+    .global-dropdown .nested-dropdown,
+.global-dropdown .nested-dropdown.level-2 {
+  display: none !important;
+ }
+ 
+
+
+
+    /* Photo Banner tweaks */
+  .photo-banner {
+    height: 180px; /* a bit shorter on mobile */
+  }
+  .photo-banner .overlay-text {
+    left: 10px;
+    right: 10px;
+  }
+  .photo-banner .overlay-text h1 {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+  .photo-banner .overlay-text p {
+    font-size: 14px;
+  }
+
+  /* Org‑content text sizing & padding */
+  .org-content {
+    padding: 0 15px;
+  }
+  .org-content h2 {
+    font-size: 28px;
+  }
+  .org-content p {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  /* First & second additional writeup sections: reduce padding */
+  .org-additional-content,
+  .org-second-writeup {
+    padding: 20px 15px;
+  }
+  .org-additional-content h2,
+  .org-second-writeup h2 {
+    font-size: 24px;
+  }
+  .org-additional-content p,
+  .org-second-writeup p {
+    font-size: 15px;
+    margin-bottom: 14px;
+  }
+
+  /* Three‑box writeup: stack vertically */
+  .three-writeup-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .writeup-box {
+    height: auto;
+    padding: 15px;
+  }
+  .writeup-box h3 {
+    font-size: 20px;
+  }
+  .writeup-box p {
+    font-size: 14px;
+  }
+
+  /* Gallery: single‑column grid */
+  .org-gallery {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .org-gallery .gallery-item img {
+    height: auto;
+  } 
+
+
+
+
+
+
+
+
+ .mobile-global-slider-section {
+    display: block;
+    background: linear-gradient(145deg, #003049, #014f86);
+    padding: 40px 0;
+    color: white;
+    text-align: center;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .mobile-global-slider-section h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+
+  .slider-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 0 10px 0;
+  }
+
+  .slider {
+    display: flex;
+    gap: 15px;
+    padding: 10px 15px;
+    scroll-snap-type: x mandatory;
+    width: max-content;
+  }
+
+  .slide-card {
+    flex: 0 0 80vw;
+    max-width: 350px;
+    background: white;
+    color: #003049;
+    border-radius: 15px;
+    padding: 15px;
+    scroll-snap-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+  }
+
+  .slide-card:hover {
+    transform: scale(1.03);
+  }
+
+  .slide-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .slide-card h3 {
+    font-size: 18px;
+    margin: 10px 0 5px;
+  }
+
+  .slide-card p {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+
+
+
+
+
+
+
+     /* ---------- Mobile Footer Layout (replace old rules) ---------- */
+
+
+    .grey-background {
+  position: relative; /* ✅ Needed for absolute positioning inside */
+  padding: 20px 10px !important;
+  box-sizing: border-box !important;
+}
+
+
+.fixed-chat-icon {
+    /* override the default right:20px; push it further right */
+    right: 10px !important;
+    /* ensure it’s still fixed and auto‑left */
+    left: auto !important;
+  } 
+
+
+.chat-icon-container {
+  position: absolute;
+  right: 10px; /* Increase if you want it further right */
+  bottom: 20px; /* Adjust vertical position if needed */
+  z-index: 10;
+}
+ 
+
+ /* Ensure the grey background has padding */
+  .grey-background {
+    padding: 20px 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* First row: navigation links */
+  .grey-nav {
+    position: static !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    margin: 0 0 10px !important;
+    width: 100% !important;
+  }
+  .grey-nav a {
+    display: inline-block !important;
+  }
+
+  /* Second row: social icons */
+  .grey-socials {
+    position: static !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    margin: 0 0 15px !important;
+    width: 100% !important;
+  }
+
+  /* Divider + spacing before the footer-links/copyright */
+  .footer-container {
+    border-top: 1px solid #ccc !important;
+    padding-top: 15px !important;
+    margin-top: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Bottom links: wrap and center */
+  .footer-links {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    margin: 0 0 10px !important;
+  }
+  .footer-links a {
+    display: inline-block !important;
+  }
+
+  /* Copyright centered */
+  .footer-copyright {
+    text-align: center !important;
+    margin: 0 !important;
+    font-size: 14px !important;
+  }
+
+     /* ---- Footer Links Vertical on Mobile ---- */
+  .footer-links {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;       /* space between each link */
+    margin-bottom: 15px !important;
+  }
+  .footer-links a {
+    display: block !important;
+    margin: 0 !important;
+  }
+
+} 
+     
+ 
+
+
+
+
+
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Top Banner Section (Unchanged) -->
+  <div class="top-banner">
+    <!-- Logo Container -->
+    <div class="logo-container">
+      <a href="{{ url_for('index_html') }}">
+        <img src="{{ url_for('static', filename='images/bluewave_logo1.webp') }}" alt="BlueWave Oil and Gas Logo">
+      </a>
+    </div>
+
+
+
+
+     <!-- Hamburger Menu Button for mobile -->
+    <button class="hamburger-menu" onclick="toggleMobileNav()">&#9776;</button> 
+ 
+
+
+
+
+    <!-- Navigation Menu with Dropdowns -->
+    <nav class="nav-menu">
+      <!-- Who We Are Dropdown -->
+      <div class="nav-item">
+        <a href="/who-we-are">Who we are</a>
+        <div class="dropdown-content">
+          <div class="dropdown-container">
+            <div class="dropdown-left">
+              <img src="{{ url_for('static', filename='images/dropdownp1.jpg') }}" alt="Who we are image" class="dropdown-image">
+              <div class="dropdown-text">Who We Are</div>
+              <div class="dropdown-subtext">
+                We're committed to responsibly meeting society’s evolving energy needs
+              </div>
+              <div class="dropdown-description">
+                <p>At BlueWave Petroleum, we combine innovative technology and sustainable practices to provide energy solutions that power communities while preserving our planet.</p>
+                <p>Our team of experts is dedicated to ensuring safety, efficiency, and environmental stewardship.</p>
+              </div>
+            </div>
+            <div class="dropdown-right">
+              <ul class="dropdown-menu">
+                <li><a href="/who-we-are" class="blue-item">Who We Are</a></li>
+                <li><a href="/global-organization">Our Global Organization</a></li>
+                <li><a href="/our-approach">Our Approach</a></li>
+                <li><a href="/technology-and-collaborations">Technology and Collaborations</a></li>
+                <li><a href="/policy">Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- What We Do Dropdown -->
+      <div class="nav-item">
+        <a href="/what-we-do">What we do</a>
+        <div class="dropdown-content">
+          <div class="dropdown-container">
+            <div class="dropdown-left">
+              <img src="{{ url_for('static', filename='images/globalp1.jpg') }}" alt="What we do image" class="dropdown-image">
+              <div class="dropdown-text">What We Do</div>
+              <div class="dropdown-subtext">
+                Driving energy solutions through innovation
+              </div>
+              <div class="dropdown-description">
+                <p>At BlueWave Petroleum, we leverage state-of-the-art technology and deep industry expertise to power our operations. Our activities span from exploration and production to refining and distribution, ensuring we meet today’s energy demands while preparing for tomorrow.</p>
+                <p>Our focus on innovation, efficiency, and sustainability enables us to deliver cutting-edge energy solutions that drive progress and empower communities worldwide.</p>
+              </div>
+            </div>
+            <div class="dropdown-right">
+              <ul class="dropdown-menu">
+                <li><a href="/what-we-do" class="blue-item">What We Do</a></li>
+                <li><a href="/exploration-and-production">Exploration & Production</a></li>
+                <li><a href="/refining-and-distribution">Refining & Distribution</a></li>
+                <li><a href="/innovative-solutions">Innovative Solutions</a></li>
+                <li><a href="/operational-excellence">Operational Excellence</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Sustainability Dropdown -->
+      <div class="nav-item">
+        <a href="/sustainability">Sustainability</a>
+        <div class="dropdown-content">
+          <div class="dropdown-container">
+            <div class="dropdown-left">
+              <img src="{{ url_for('static', filename='images/globalp2.jpg') }}" alt="Sustainability image" class="dropdown-image">
+              <div class="dropdown-text">Sustainability</div>
+              <div class="dropdown-subtext">
+                Empowering a greener future
+              </div>
+              <div class="dropdown-description">
+                <p>Our sustainability initiatives ensure that we meet current energy needs while protecting the environment for future generations. We integrate environmental, social, and governance practices across all operations.</p>
+                <p>Through innovation and strategic partnerships, we continuously reduce our carbon footprint and promote green innovation in every aspect of our business.</p>
+              </div>
+            </div>
+            <div class="dropdown-right">
+              <ul class="dropdown-menu">
+                <li><a href="/sustainability" class="blue-item">Sustainability Overview</a></li>
+                <li><a href="/environmental-impact">Environmental Impact</a></li>
+                <li><a href="/resource-efficiency">Resource Efficiency</a></li>
+                <li><a href="/green-innovations">Green Innovations</a></li>
+                <li><a href="/community-engagement">Community Engagement</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Community Dropdown -->
+      <div class="nav-item">
+        <a href="/community">Community</a>
+        <div class="dropdown-content">
+          <div class="dropdown-container">
+            <div class="dropdown-left">
+              <img src="{{ url_for('static', filename='images/globalp3.jpg') }}" alt="Community image" class="dropdown-image">
+              <div class="dropdown-text">Community</div>
+              <div class="dropdown-subtext">
+                Building stronger connections
+              </div>
+              <div class="dropdown-description">
+                <p>At BlueWave Petroleum, we believe in the power of community. We foster local development, support social programs, and build partnerships that strengthen community resilience.</p>
+                <p>Our commitment extends beyond energy production—we work to enhance the well-being of the communities where we operate.</p>
+              </div>
+            </div>
+            <div class="dropdown-right">
+              <ul class="dropdown-menu">
+                <li><a href="/community" class="blue-item">Community Outreach</a></li>
+                <li><a href="/local-partnerships">Local Partnerships</a></li>
+                <li><a href="/social-programs">Social Programs</a></li>
+                <li><a href="/employee-engagement">Employee Engagement</a></li>
+                <li><a href="/volunteer-initiatives">Volunteer Initiatives</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Newsroom Dropdown -->
+      <div class="nav-item">
+        <a href="/newsroom">Newsroom</a>
+        <div class="dropdown-content">
+          <div class="dropdown-container">
+            <div class="dropdown-left">
+              <img src="{{ url_for('static', filename='images/dropdownp5.jpg') }}" alt="Newsroom image" class="dropdown-image">
+              <div class="dropdown-text">Newsroom</div>
+              <div class="dropdown-subtext">
+                Stay informed with our updates
+              </div>
+              <div class="dropdown-description">
+                <p>Stay informed with the latest updates and press releases from BlueWave Petroleum. Our newsroom is your source for company news, industry insights, and expert commentary.</p>
+                <p>We are committed to transparency and timely communication, ensuring you receive accurate and current information about our initiatives.</p>
+              </div>
+            </div>
+            <div class="dropdown-right">
+              <ul class="dropdown-menu">
+                <li><a href="/newsroom" class="blue-item">Newsroom</a></li>
+                <li><a href="/press-releases">Press Releases</a></li>
+                <li><a href="/media-coverage">Media Coverage</a></li>
+                <li><a href="/industry-insights">Industry Insights</a></li>
+                <li><a href="/expert-commentary">Expert Commentary</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Investor Dropdown -->
+      <div class="nav-item">
+        <a href="/investor">Investor</a>
+        <div class="dropdown-content">
+          <div class="dropdown-container">
+            <div class="dropdown-left">
+              <img src="{{ url_for('static', filename='images/dropdownp6.jpg') }}" alt="Investor image" class="dropdown-image">
+              <div class="dropdown-text">Investor Relations</div>
+              <div class="dropdown-subtext">
+                Transparency and strategic vision
+              </div>
+              <div class="dropdown-description">
+                <p>Our investor relations team provides timely updates, financial insights, and market trends.</p>
+                <p>We prioritize long-term relationships built on trust and transparency.</p>
+              </div>
+            </div>
+            <div class="dropdown-right">
+              <ul class="dropdown-menu">
+                <li><a href="/investor" class="blue-item">Investor Relations</a></li>
+                <li><a href="/financial-reports">Financial Reports</a></li>
+                <li><a href="/market-trends">Market Trends</a></li>
+                <li><a href="/strategic-vision">Strategic Vision</a></li>
+                <li><a href="/shareholder-updates">Shareholder Updates</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Careers Dropdown -->
+      <div class="nav-item careers-dropdown">
+        <a href="/careers">Careers</a>
+        <div class="dropdown-content">
+          <div class="dropdown-container">
+            <div class="dropdown-left">
+              <img src="{{ url_for('static', filename='images/dropdownp7.jpg') }}" alt="Careers image" class="dropdown-image">
+              <div class="dropdown-text">Careers</div>
+              <div class="dropdown-subtext">
+                Innovate. Grow. Impact.
+              </div>
+              <div class="dropdown-description">
+                <p>Join a dynamic team where innovation meets opportunity. At BlueWave Petroleum, our career opportunities span various disciplines, offering a platform to grow and make a lasting impact in the energy sector.</p>
+                <p>We are committed to fostering talent, championing professional development, and cultivating an inclusive work environment.</p>
+              </div>
+            </div>
+            <div class="dropdown-right">
+              <ul class="dropdown-menu">
+                <li><a href="/careers" class="blue-item">Careers</a></li>
+                <li><a href="/job-openings">Job Openings</a></li>
+                <li><a href="/internships">Internships</a></li>
+                <li><a href="/employee-benefits">Employee Benefits</a></li>
+                <li><a href="/diversity-inclusion">Diversity &amp; Inclusion</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
+
+
+         <!-- Mobile Nav Overlay -->
+<div id="mobileNavOverlay">
+  <!-- Close button -->
+  <button class="mobile-nav-close" onclick="toggleMobileNav()" aria-label="Close menu">×</button>
+
+  <!-- Panel 1: Top-level menu -->
+  <div class="mobile-menu-panel panel-main">
+    <ul class="mobile-menu-list">
+      <li><button class="menu-btn" data-menu="who">Who we are</button></li>
+      <li><button class="menu-btn" data-menu="what">What we do</button></li>
+      <li><button class="menu-btn" data-menu="sustainability">Sustainability</button></li>
+      <li><button class="menu-btn" data-menu="community">Community</button></li>
+      <li><button class="menu-btn" data-menu="newsroom">Newsroom</button></li>
+      <li><button class="menu-btn" data-menu="investor">Investor</button></li>
+      <li><button class="menu-btn" data-menu="careers">Careers</button></li>
+    </ul>
+  </div>
+
+  <!-- Panel 2: Sub-menu -->
+  <div class="mobile-menu-panel panel-sub">
+    <button class="back-btn" aria-label="Back to menu">‹ Back</button>
+    <h2 class="sub-menu-heading"></h2>
+    <ul class="sub-menu-list"></ul>
+  </div>
+</div>
+
+
+
+
+
+
+
+     <!-- Global & Search Icons -->
+    <div class="nav-icons">
+      <div class="gmail-icon">
+        <a href="/contact-us">
+          <img src="static/images/gmail1.png" alt="Gmail Icon">
+        </a>
+      </div>
+      <div class="global-icon" onclick="toggleGlobalDropdown(event)">
+        <img src="static/images/global1.png" alt="Global">
+        <span>Global</span>
+        <div id="globalDropdown" class="global-dropdown">
+          <a href="index.html" class="active-link" onclick="event.stopPropagation();">Bluewave Oil&amp;Gas</a>
+          <!-- Americas Section -->
+          <a href="javascript:void(0)" onclick="toggleAmericasDropdown(event)">Americas</a>
+          <div id="americasDropdown" class="nested-dropdown" style="display:none;">
+            <div class="nested-item">
+              <span class="not-clickable">Bluewave Oil&amp;Gas (Americas)</span>
+            </div>
+            <div class="nested-item">
+              <a href="javascript:void(0)" class="clickable-item" onclick="toggleAmericasRegionDropdown(event)">Americas Region</a>
+            </div>
+            <div id="americasRegionDropdown" class="nested-dropdown level-2" style="display:none;">
+              <div class="nested-item">
+                <span class="not-clickable">Bluewave Oil&amp;Gas</span>
+              </div>
+              <div class="nested-item">
+                <a href="{{ url_for('americas_region') }}" class="clickable-item">Bluewave Oil&amp;Gas (Americas Region)</a>
+              </div>
+            </div>
+          </div>
+          <!-- Middle East / Africa Section -->
+          <a href="javascript:void(0)" onclick="toggleMiddleEastAfricaDropdown(event)">Middle East / Africa</a>
+          <div id="middleEastAfricaDropdown" class="nested-dropdown" style="display:none;">
+            <div class="nested-item">
+              <span class="not-clickable">Bluewave Oil&amp;Gas (Middle East / Africa)</span>
+            </div>
+            <div class="nested-item">
+              <a href="javascript:void(0)" class="clickable-item" onclick="toggleMiddleEastAfricaRegionDropdown(event)">Middle East / Africa Region</a>
+            </div>
+            <div id="middleEastAfricaRegionDropdown" class="nested-dropdown level-2" style="display:none;">
+              <div class="nested-item">
+                <span class="not-clickable">Bluewave Oil&amp;Gas</span>
+              </div>
+              <div class="nested-item">
+                <a href="{{ url_for('middle_east_africa_region') }}" class="clickable-item">Bluewave Oil&amp;Gas (Middle East / Africa Region)</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="search-icon" id="openSearch">
+        <img src="static/images/search.png" alt="Search">
+      </div>
+    </div>
+  </div>
+  
+  <!-- Full-Width Search Overlay -->
+  <div id="search-overlay">
+    <div id="search-container">
+      <div id="closeOverlay">&times;</div>
+      <div class="search-input-wrapper">
+        <input type="text" id="search" placeholder="Search for topics, articles, data">
+        <button id="searchBtn">Search</button>
+      </div>
+      <ul id="results"></ul>
+    </div>
+  </div> 
+
+
+
+
+
+
+
+
+
+      
+  <!-- Photo Banner Section -->
+  <div class="photo-banner">
+    <div class="overlay-text">
+      <h1>Refining & Distribution</h1>
+      <p>Delivering high-quality products through efficient refining and distribution networks</p>
+    </div>
+  </div>
+  
+  <!-- Refining & Distribution Content Section -->
+  <div class="org-content">
+    <!-- Welcome Section -->
+    <h2>Welcome to Refining & Distribution</h2>
+    <p>
+      Our Refining & Distribution division transforms crude oil into premium products and ensures their seamless delivery to markets around the globe. We employ advanced processing techniques to maximize yield and quality.
+    </p>
+    <p>
+      With a commitment to operational excellence and sustainability, our integrated approach ensures efficient production and distribution, supporting reliable energy supply.
+    </p>
+    
+    <!-- First Additional Writeup Section -->
+    <div class="org-additional-content">
+      <h2>State-of-the-Art Refining Processes</h2>
+      <p>
+        Our refining operations utilize cutting-edge technology to process crude oil into superior products. We focus on optimizing yield while maintaining the highest standards of safety and quality.
+      </p>
+      <p>
+        Continuous improvement and innovation drive our refining processes, ensuring that we stay ahead in the competitive energy market.
+      </p>
+    </div>
+    
+    <!-- Second Additional Writeup Section -->
+    <div class="org-second-writeup">
+      <h2>Efficient Distribution & Logistics</h2>
+      <p>
+        Our distribution network is designed to ensure timely and efficient delivery of refined products. By integrating advanced logistics and supply chain management, we meet global demand reliably.
+      </p>
+      <p>
+        Commitment to sustainable practices and market integration further enhances our ability to deliver high-quality products while minimizing environmental impact.
+      </p>
+    </div>
+    
+
+
+
+
+
+      <!-- 🏭 Mobile Slider Section for 'Refining & Distribution' Page -->
+<div class="mobile-global-slider-section">
+  <h2>From Crude to Clean</h2>
+  <div class="slider-container">
+    <div class="slider">
+      <div class="slide-card">
+        <img src="{{ url_for('static', filename='images/globalp1.jpg') }}" alt="Modern Refineries">
+        <h3>Modern Refineries</h3>
+        <p>Our facilities transform raw energy into reliable fuels using low-emission processes.</p>
+      </div>
+      <div class="slide-card">
+        <img src="{{ url_for('static', filename='images/globalp2.jpg') }}" alt="Distribution Network">
+        <h3>Efficient Distribution</h3>
+        <p>We maintain a robust, secure logistics chain from refinery to end users worldwide.</p>
+      </div>
+      <div class="slide-card">
+        <img src="{{ url_for('static', filename='images/globalp3.jpg') }}" alt="Safety Protocols">
+        <h3>Global Safety Standards</h3>
+        <p>Every step in our chain meets the highest standards for safety and environmental care.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+    <!-- New Three-Box Writeup Section -->
+    <div class="three-writeup-section">
+      <div class="writeup-box">
+        <h3>Refining</h3>
+        <p>Advanced processes that convert crude oil into premium products.</p>
+      </div>
+      <div class="writeup-box">
+        <h3>Distribution</h3>
+        <p>Efficient logistics that ensure timely product delivery.</p>
+      </div>
+      <div class="writeup-box">
+        <h3>Sustainability</h3>
+        <p>Integrated practices that promote environmental stewardship.</p>
+      </div>
+    </div>
+    
+    <!-- Capabilities Gallery Section -->
+    <h2>Our Capabilities</h2>
+    <div class="org-gallery">
+      <div class="gallery-item">
+        <img src="{{ url_for('static', filename='images/globalp1.jpg') }}" alt="Advanced Refining Processes">
+        <div class="caption">Advanced Refining Processes</div>
+      </div>
+      <div class="gallery-item">
+        <img src="{{ url_for('static', filename='images/globalp2.jpg') }}" alt="Quality Control">
+        <div class="caption">Quality Control</div>
+      </div>
+      <div class="gallery-item">
+        <img src="{{ url_for('static', filename='images/globalp3.jpg') }}" alt="Distribution Networks">
+        <div class="caption">Distribution Networks</div>
+      </div>
+      <div class="gallery-item">
+        <img src="{{ url_for('static', filename='images/globalp4.jpg') }}" alt="Logistics & Supply Chain">
+        <div class="caption">Logistics & Supply Chain</div>
+      </div>
+      <div class="gallery-item">
+        <img src="{{ url_for('static', filename='images/globalp5.jpg') }}" alt="Market Integration">
+        <div class="caption">Market Integration</div>
+      </div>
+      <div class="gallery-item">
+        <img src="{{ url_for('static', filename='images/globalp6.jpg') }}" alt="Sustainable Practices">
+        <div class="caption">Sustainable Practices</div>
+      </div>
+    </div>
+  </div>
+  
+
+
+      <!-- Footer Section -->
+  <div class="grey-background">
+    <div class="grey-nav">
+      <a href="/careers">Careers</a>
+      <a href="/faq">FAQ</a>
+      <a href="/investor">Investor</a>
+      <a href="/contact-us">Contact Us</a>
+    </div>
+    <div class="grey-socials">
+      
+      <a href="https://x.com/Bluewave_Oil" target="_blank"><img src="{{ url_for('static', filename='images/x.logo.png') }}" alt="X (Twitter)"></a>
+      <a href="https://www.linkedin.com/in/bluewave-oil-837300360/" target="_blank"><img src="{{ url_for('static', filename='images/linkedin.logo.png') }}" alt="LinkedIn"></a>
+      <a href="https://www.youtube.com/feed/you" target="_blank"><img src="{{ url_for('static', filename='images/youtube.logo.png') }}" alt="YouTube"></a>
+    </div>
+    <div class="chat-icon-container" id="footerChatIcon" onclick="toggleChat(event)" style="display: none;">
+      <img src="{{ url_for('static', filename='images/livechatp1.png') }}" alt="Live Chat">
+    </div>
+    <div class="footer-container">
+      <div class="footer-links">
+        <a href="privacy-center">Privacy Center</a>
+        <a href="terms-of-service">Terms of Service</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="resources">Resources</a>
+      </div>
+      <div class="footer-copyright">
+        &copy; 2025 Bluewave Oil. All rights reserved.
+      </div>
+    </div>
+  </div>
+  
+  <!-- Chat Box Section -->
+  <div id="chatBox" class="chat-box">
+    <div class="chat-header">
+      <span>Live Support Chat</span>
+      <button onclick="toggleChat(event)">X</button>
+    </div>
+    <div id="chatMessages" class="chat-messages">
+      <!-- Chat messages will appear here -->
+    </div>
+    <div id="supportContainer" style="display: none; text-align: center; padding: 5px; margin-top: 10px;">
+      <button id="supportButton" onclick="redirectToSupport()">Contact Support</button>
+      <button id="endChatButton" onclick="endChat()" style="display:none;">End Chat</button>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="checkEnter(event)">
+      <button onclick="sendChatMessage()">Send</button>
+    </div>
+  </div>
+  
+  <div class="fixed-chat-icon" id="fixedChatIcon" onclick="toggleChat(event)">
+    <img src="{{ url_for('static', filename='images/livechatp1.png') }}" alt="Live Chat">
+  </div>
+   
+  
+
+
+
+
+
+       <!-- JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js"></script>
+  <script>
+       document.addEventListener('DOMContentLoaded', () => {
+  const overlay    = document.getElementById('mobileNavOverlay');
+  const hamburger  = document.querySelector('.hamburger-menu');
+  const closeBtn   = overlay.querySelector('.mobile-nav-close');
+  const backBtn    = overlay.querySelector('.back-btn');
+  const mainPanel  = overlay.querySelector('.panel-main');
+  const subPanel   = overlay.querySelector('.panel-sub');
+  const heading    = overlay.querySelector('.sub-menu-heading');
+  const subList    = overlay.querySelector('.sub-menu-list');
+  const menuBtns   = overlay.querySelectorAll('.menu-btn');
+
+  // complete submenu data
+  const submenuData = {
+    who: [
+      { text: 'Who We Are', href: '/who-we-are' },
+      { text: 'Our Global Organization', href: '/global-organization' },
+      { text: 'Our Approach', href: '/our-approach' },
+      { text: 'Technology & Collaborations', href: '/technology-and-collaborations' },
+      { text: 'Policy', href: '/policy' }
+    ],
+    what: [
+      { text: 'What We Do', href: '/what-we-do' },
+      { text: 'Exploration & Production', href: '/exploration-and-production' },
+      { text: 'Refining & Distribution', href: '/refining-and-distribution' },
+      { text: 'Innovative Solutions', href: '/innovative-solutions' },
+      { text: 'Operational Excellence', href: '/operational-excellence' }
+    ],
+    sustainability: [
+      { text: 'Sustainability Overview', href: '/sustainability' },
+      { text: 'Environmental Impact', href: '/environmental-impact' },
+      { text: 'Resource Efficiency', href: '/resource-efficiency' },
+      { text: 'Green Innovations', href: '/green-innovations' },
+      { text: 'Community Engagement', href: '/community-engagement' }
+    ],
+    community: [
+      { text: 'Community Outreach', href: '/community' },
+      { text: 'Local Partnerships', href: '/local-partnerships' },
+      { text: 'Social Programs', href: '/social-programs' },
+      { text: 'Employee Engagement', href: '/employee-engagement' },
+      { text: 'Volunteer Initiatives', href: '/volunteer-initiatives' }
+    ],
+    newsroom: [
+      { text: 'Newsroom', href: '/newsroom' },
+      { text: 'Press Releases', href: '/press-releases' },
+      { text: 'Media Coverage', href: '/media-coverage' },
+      { text: 'Industry Insights', href: '/industry-insights' },
+      { text: 'Expert Commentary', href: '/expert-commentary' }
+    ],
+    investor: [
+      { text: 'Investor Relations', href: '/investor' },
+      { text: 'Financial Reports', href: '/financial-reports' },
+      { text: 'Market Trends', href: '/market-trends' },
+      { text: 'Strategic Vision', href: '/strategic-vision' },
+      { text: 'Shareholder Updates', href: '/shareholder-updates' }
+    ],
+    careers: [
+      { text: 'Careers', href: '/careers' },
+      { text: 'Job Openings', href: '/job-openings' },
+      { text: 'Internships', href: '/internships' },
+      { text: 'Employee Benefits', href: '/employee-benefits' },
+      { text: 'Diversity & Inclusion', href: '/diversity-inclusion' }
+    ]
+  };
+
+  // open/close overlay
+  function openNav() {
+    overlay.style.display = 'block';
+    requestAnimationFrame(() => overlay.classList.add('open'));
+  }
+  function closeNav() {
+    overlay.classList.remove('open');
+    overlay.addEventListener('transitionend', function hide() {
+      overlay.style.display = 'none';
+      overlay.removeEventListener('transitionend', hide);
+    });
+    // reset panels
+    mainPanel.classList.remove('hidden');
+    subPanel.classList.remove('active');
+  }
+
+  hamburger.addEventListener('click', e => {
+    e.stopPropagation();
+    overlay.classList.contains('open') ? closeNav() : openNav();
+  });
+  closeBtn.addEventListener('click', closeNav);
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) closeNav();
+  });
+
+  // panel switching
+  menuBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.getAttribute('data-menu');
+      const items = submenuData[key] || [];
+      heading.textContent = btn.textContent;
+      subList.innerHTML = '';
+      items.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="${item.href}">${item.text}</a>`;
+        subList.appendChild(li);
+      });
+      mainPanel.classList.add('hidden');
+      subPanel.classList.add('active');
+    });
+  });
+
+  backBtn.addEventListener('click', () => {
+    subPanel.classList.remove('active');
+    mainPanel.classList.remove('hidden');
+  });
+});
+       
+   
+       // ── On mobile, turn “Americas” & “Middle East / Africa” into direct links ──
+if (window.innerWidth <= 768) {
+  // Americas
+  const americasBtn = document.querySelector('#globalDropdown > a[onclick^="toggleAmericasDropdown"]');
+  const americasTarget = document.querySelector('#americasRegionDropdown .clickable-item');
+  if (americasBtn && americasTarget) {
+    americasBtn.removeAttribute('onclick');
+    americasBtn.setAttribute('href', americasTarget.getAttribute('href'));
+  }
+  // Middle East / Africa
+  const meaBtn = document.querySelector('#globalDropdown > a[onclick^="toggleMiddleEastAfricaDropdown"]');
+  const meaTarget = document.querySelector('#middleEastAfricaRegionDropdown .clickable-item');
+  if (meaBtn && meaTarget) {
+    meaBtn.removeAttribute('onclick');
+    meaBtn.setAttribute('href', meaTarget.getAttribute('href'));
+  }
+}
+
+   
+    // Toggle Global Dropdown
+    function toggleGlobalDropdown(event) {
+      event.stopPropagation();
+      var dropdown = document.getElementById('globalDropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+    // Toggle nested Americas dropdown
+    function toggleAmericasDropdown(event) {
+      event.stopPropagation();
+      var americasDropdown = document.getElementById('americasDropdown');
+      document.getElementById('americasRegionDropdown').style.display = 'none';
+      americasDropdown.style.display = americasDropdown.style.display === 'block' ? 'none' : 'block';
+    }
+    // Toggle Americas Region dropdown
+    function toggleAmericasRegionDropdown(event) {
+      event.stopPropagation();
+      var americasRegionDropdown = document.getElementById('americasRegionDropdown');
+      americasRegionDropdown.style.display = americasRegionDropdown.style.display === 'block' ? 'none' : 'block';
+    }
+    // Toggle Middle East / Africa Dropdown
+    function toggleMiddleEastAfricaDropdown(event) {
+      event.stopPropagation();
+      var dropdown = document.getElementById('middleEastAfricaDropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+    // Toggle Middle East / Africa Region Dropdown
+    function toggleMiddleEastAfricaRegionDropdown(event) {
+      event.stopPropagation();
+      var dropdown = document.getElementById('middleEastAfricaRegionDropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+    
+    document.addEventListener('click', function() {
+      document.getElementById('globalDropdown').style.display = 'none';
+      document.getElementById('americasDropdown').style.display = 'none';
+      document.getElementById('americasRegionDropdown').style.display = 'none';
+      document.getElementById('middleEastAfricaDropdown').style.display = 'none';
+      document.getElementById('middleEastAfricaRegionDropdown').style.display = 'none';
+    });
+    
+    // Search Overlay Functionality
+    $('#openSearch').on('click', function(e) {
+      e.stopPropagation();
+      $('#search-overlay').fadeIn();
+      $('#search').focus();
+    });
+    $('#closeOverlay').on('click', function() {
+      $('#search-overlay').fadeOut();
+    });
+    $(document).on('click', function(e) {
+      if (!$(e.target).closest('#search-container, #openSearch').length) {
+        $('#search-overlay').fadeOut();
+      }
+    });
+    $('#search-container').on('click', function(e) {
+      e.stopPropagation();
+    });
+    
+    var idx = null;
+    var documents = [];
+    $.getJSON('/static/search/search_index.json', function(data) {
+      documents = data;
+      idx = lunr(function () {
+        this.ref('url');
+        this.field('title');
+        this.field('content');
+        documents.forEach(function(doc) {
+          this.add(doc);
+        }, this);
+      });
+    });
+    function performSearch() {
+      var query = $('#search').val().trim();
+      $('#results').empty();
+      if (query.length < 2 || !idx) { return; }
+      var results = idx.search(query);
+      results.forEach(function(result) {
+        var doc = documents.find(function(item) { return item.url === result.ref; });
+        if (doc) {
+          var snippet = doc.content.substring(0, 150) + '...';
+          $('#results').append('<li><a href="' + doc.url + '">' + doc.title + '</a><br>' +
+            '<span class="snippet">' + snippet + '</span></li>');
+        }
+      });
+    }
+    $('#search').on('keyup', performSearch);
+    $('#searchBtn').on('click', performSearch); 
+ 
+
+
+
+
+
+
+
+    
+    // Chat functions
+    function toggleChat(event) {
+      if(event) event.stopPropagation();
+      var chatBox = document.getElementById("chatBox");
+      chatBox.style.display = chatBox.style.display === "block" ? "none" : "block";
+    }
+    function checkEnter(event) {
+      if (event.key === "Enter") { sendChatMessage(); }
+    }
+    function sendChatMessage() {
+      var input = document.getElementById("chatInput");
+      var message = input.value.trim();
+      if (message !== "") {
+        var chatMessages = document.getElementById("chatMessages");
+        var userMessageDiv = document.createElement("div");
+        userMessageDiv.className = "chat-message";
+        userMessageDiv.textContent = "You: " + message;
+        userMessageDiv.style.textAlign = "left";
+        chatMessages.appendChild(userMessageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        input.value = "";
+        document.getElementById("supportContainer").style.display = "none";
+        setTimeout(function() { autoReply(); }, 1000);
+      }
+    }
+    function autoReply() {
+      var replyText = "Thank you for reaching out. For further assistance, please refer to our FAQ or click 'Contact Support'.";
+      var chatMessages = document.getElementById("chatMessages");
+      var replyDiv = document.createElement("div");
+      replyDiv.className = "chat-message";
+      replyDiv.innerHTML = "<div class='live-support-box'>Live Support: " + replyText + "</div>";
+      replyDiv.style.textAlign = "right";
+      replyDiv.style.fontWeight = "bold";
+      chatMessages.appendChild(replyDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      document.getElementById("supportContainer").style.display = "block";
+    }
+    function redirectToSupport() {
+      window.location.href = "/contact-us";
+    }
+    function endChat() {
+      alert("Chat session ended. Please click 'Contact Support' if needed.");
+      document.getElementById("chatMessages").innerHTML = "";
+      document.getElementById("supportContainer").style.display = "none";
+    }
+    // Close chat box when clicking outside of it
+document.addEventListener('click', function(e) {
+  const chatBox = document.getElementById("chatBox");
+  const fixedChatIcon = document.getElementById("fixedChatIcon");
+  // If chatBox is open, and the click target is not within chatBox or fixedChatIcon
+  if (chatBox.style.display === "block" && 
+      !chatBox.contains(e.target) &&
+      !fixedChatIcon.contains(e.target)) {
+    chatBox.style.display = "none";
+  }
+});
+ 
+
+  </script>
+</body>
+</html>

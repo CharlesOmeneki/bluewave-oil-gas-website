@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Newsroom Updates</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+        /* Styles for the password prompt */
+        #passwordPrompt {
+            margin: 0 auto;
+            max-width: 300px;
+        }
+        #passwordPrompt input[type="password"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #errorMessage {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Password Prompt Section -->
+    <div id="passwordPrompt">
+        <h2>Password Required</h2>
+        <input type="password" id="adminPassword" placeholder="Enter password">
+        <button id="submitPassword">Submit</button>
+        <p id="errorMessage">Incorrect password. Please try again.</p>
+    </div>
+
+    <!-- Admin Content (Initially hidden) -->
+    <div id="adminContent" style="display:none;">
+        <h1>Admin Panel</h1>
+        <p>Click the button below to notify all subscribers about newsroom updates.</p>
+
+        <button id="notify-update">Notify Subscribers</button>
+
+        <script>
+            document.getElementById("notify-update").addEventListener("click", function() {
+                fetch("/notify-newsroom-update", { method: "POST" })
+                    .then(response => response.json())
+                    .then(data => alert(data.message))
+                    .catch(error => console.error("Error:", error));
+            });
+        </script>
+    </div>
+    
+    <!-- Password Check Script -->
+    <script>
+        document.getElementById("submitPassword").addEventListener("click", function() {
+            var input = document.getElementById("adminPassword").value;
+            if (input === "Knowledge2020.") {
+                document.getElementById("passwordPrompt").style.display = "none";
+                document.getElementById("adminContent").style.display = "block";
+            } else {
+                document.getElementById("errorMessage").style.display = "block";
+            }
+        });
+        // Optional: Allow Enter key to submit password
+        document.getElementById("adminPassword").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                document.getElementById("submitPassword").click();
+            }
+        });
+    </script>
+
+</body>
+</html>

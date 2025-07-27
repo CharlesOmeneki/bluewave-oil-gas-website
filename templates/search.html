@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Global Site Search</title>
+  <!-- Load Lunr.js and jQuery from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+    }
+    #search {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px;
+      font-size: 16px;
+      display: block;
+      margin: 20px auto;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    #results {
+      list-style: none;
+      padding: 0;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+    #results li {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    #results li a {
+      text-decoration: none;
+      color: #007BFF;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    #results li a:hover {
+      text-decoration: underline;
+    }
+    .snippet {
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>Search Our Website</h1>
+  <input type="text" id="search" placeholder="Type your query..." />
+  <ul id="results"></ul>
+
+  <script>
+    var idx = null;
+    var documents = [];
+
+    // Load the JSON search index from the static/search folder
+    $.getJSON("/static/search/search_index.json", function(data) {
+      documents = data;
+      console.log("JSON data loaded:", documents);
+      // Build the Lunr.js index using fields: title and content; use url as reference
+      idx = lunr(function () {
+        this.ref('url');
+        this.field('title');
+        this.field('content');
+        documents.forEach(function(doc) {
+          this.add(doc);
+        }, this);
+      });
+      console.log("Lunr index built:", idx);
+    });
+
+    // Listen to keyup events in the search box for live searching
+    $("#search").on("keyup", function() {
+      var query = $(this).val().trim();
+      console.log("Search query:", query);
+      $("#results").empty();
+
+      // Lower the threshold for testing (change < 1 to < 2 for production)
+      if (query.length < 1 || !idx) {
+        console.log("Query too short or index not ready.");
+        return;
+      }
+
+      // Execute the search query on the index
+      var results = idx.search(query);
+      console.log("Lunr search results:", results);
+
+      results.forEach(function(result) {
+        var doc = documents.find(function(item) {
+          return item.url === result.ref;
+        });
+        if (doc) {
+          var snippet = doc.content.substring(0, 150) + '...';
+          $("#results").append(
+            "<li><a href='" + doc.url + "'>" + doc.title + "</a><br>" +
+            "<span class='snippet'>" + snippet + "</span></li>"
+          );
+        }
+      });
+    });
+  </script>
+</body>
+</html>
