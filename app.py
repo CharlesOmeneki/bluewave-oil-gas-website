@@ -363,7 +363,12 @@ def update_newsroom():
 # ----------------------------
 @app.route('/notify-newsroom-update', methods=['POST'])
 def notify_newsroom_update():
-    subscribers = NewsletterSubscriber.query.all()
+    try:
+        subscribers = db.session.execute(db.select(NewsletterSubscriber.email)).all()
+    except Exception as e:
+        app.logger.error(f"Failed to fetch subscribers: {e}")
+        return jsonify(status="error", message="Could not fetch subscribers."), 500
+
     if not subscribers:
         return jsonify(status="error", message="No subscribers to notify."), 400
 
@@ -396,28 +401,27 @@ def notify_newsroom_update():
 
     errors = []
 
-    for sub in subscribers:
+    for (email,) in subscribers:  # ✅ CORRECTED UNPACKING
         try:
-            msg = Message(subject, recipients=[sub.email])
+            msg = Message(subject, recipients=[email])
             msg.body = text_body
             msg.html = html_body
 
             # Attach the logo inline
             with app.open_resource("static/images/bluewave_logo1.webp") as fp:
-                     msg.attach(
-                       filename="bluewave_logo1.webp",
-                       content_type="image/webp",
-                       data=fp.read(),
-                       disposition="inline",
-                       headers=[("Content-ID", "<bluewave_logo>")]  # ✅ fix here
-                        )
-
+                msg.attach(
+                    filename="bluewave_logo1.webp",
+                    content_type="image/webp",
+                    data=fp.read(),
+                    disposition="inline",
+                    headers=[("Content-ID", "<bluewave_logo>")]  # ✅ correct format
+                )
 
             mail.send(msg)
 
         except Exception as e:
-            app.logger.error(f"Notify failed for {sub.email}: {e}")
-            errors.append(f"{sub.email}: {e}")
+            app.logger.error(f"Notify failed for {email}: {e}")
+            errors.append(f"{email}: {e}")
 
     if errors:
         return jsonify(
@@ -426,7 +430,6 @@ def notify_newsroom_update():
         ), 500
 
     return jsonify(status="success", message="All subscribers notified!")
-
 
 # ----------------------------
 # Contact Form Email Sending Endpoint (hosted SMTP)
