@@ -367,13 +367,11 @@ def notify_newsroom_update():
     if not subscribers:
         return jsonify(status="error", message="No subscribers to notify."), 400
 
-    subject      = "New Update in Our Newsroom - BlueWave Petroleum"
+    subject = "New Update in Our Newsroom - BlueWave Petroleum"
     newsroom_url = url_for('newsroom', _external=True)
 
-    # Plain-text fallback
     text_body = f"We have a new update in our Newsroom! Click here: {newsroom_url}"
 
-    # HTML email content
     html_body = f"""<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><title>Newsroom Update</title></head>
@@ -404,16 +402,15 @@ def notify_newsroom_update():
             msg.body = text_body
             msg.html = html_body
 
-              # Attach the logo inline (Render-safe version)
-         logo_path = os.path.join(app.root_path, "static", "images", "bluewave_logo1.webp")
-         with open(logo_path, "rb") as fp:
-          msg.attach(
-        filename="bluewave_logo1.webp",
-        content_type="image/webp",
-        data=fp.read(),
-        disposition="inline",
-        headers={ "Content-ID": "<bluewave_logo>" }
-    )
+            # Attach the logo inline
+            with app.open_resource("static/images/bluewave_logo1.webp") as fp:
+                msg.attach(
+                    filename="bluewave_logo1.webp",
+                    content_type="image/webp",
+                    data=fp.read(),
+                    disposition="inline",
+                    headers={"Content-ID": "<bluewave_logo>"}
+                )
 
             mail.send(msg)
 
