@@ -404,13 +404,14 @@ def notify_newsroom_update():
 
             # Attach the logo inline
             with app.open_resource("static/images/bluewave_logo1.webp") as fp:
-                msg.attach(
-                    filename="bluewave_logo1.webp",
-                    content_type="image/webp",
-                    data=fp.read(),
-                    disposition="inline",
-                    headers={"Content-ID": "<bluewave_logo>"}
-                )
+                     msg.attach(
+                       filename="bluewave_logo1.webp",
+                       content_type="image/webp",
+                       data=fp.read(),
+                       disposition="inline",
+                       headers=[("Content-ID", "<bluewave_logo>")]  # ✅ fix here
+                        )
+
 
             mail.send(msg)
 
